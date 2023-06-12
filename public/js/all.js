@@ -10,8 +10,8 @@ const allPaths = [
 	{ title: "Register", name: "register", path: "/register.html", role: "all" },
 	{ title: "Login", name: "login", path: "/login.html", role: "all" },
 	{
-		title: "Restaurant",
-		name: "restaurant",
+		title: "Restaurant Detail", // view restaurant detail
+		name: "restaurant detail",
 		path: "/restaurant.html",
 		role: "all",
 	},
@@ -34,13 +34,13 @@ const allPaths = [
 		role: "user",
 	},
 	{
-		title: "Review",
+		title: "Review", // New, View/Edit user's review
 		name: "review",
 		path: "/user-review.html",
 		role: "user",
 	},
 	{
-		title: "Restaurant",
+		title: "Restaurant", // New, View/Edit restaurant
 		name: "restaurant",
 		path: "/admin-restaurant.html",
 		role: "admin",
@@ -108,15 +108,23 @@ const navbar = `
 							<div class="uk-navbar-dropdown">
 								<ul class="uk-nav uk-navbar-dropdown-nav">
 									${
-										currentPath === allPaths.register.path
+										currentPath === retrievePath("name", "register", "path")
 											? '<li class="uk-active">'
 											: "<li>"
-									}<a href=${allPaths.register.path}>Register</a></li>
+									}<a href=${retrievePath(
+	"name",
+	"register",
+	"path"
+)}>Register</a></li>
 									${
-										currentPath === allPaths.login.path
+										currentPath === retrievePath("name", "login", "path")
 											? '<li class="uk-active">'
 											: "<li>"
-									}<a href=${allPaths.login.path}>Login</a></li>
+									}<a href=${retrievePath(
+	"name",
+	"login",
+	"path"
+)}>Login</a></li>
 									<li class="uk-nav-header">Account</li>
 									<li><a href="/user-profile">Profile</a></li>
 									<li><a href="/user-reviews">Reviews</a></li>
@@ -159,4 +167,8 @@ function appendDomItem(parentDom, htmlchild) {
 	const div = document.createElement("div");
 	div.innerHTML = htmlchild;
 	parentDom.append(...div.childNodes);
+}
+
+function retrievePath(comparekey, compareval, returnval) {
+	return allPaths.find((item) => item[comparekey] == compareval)[returnval];
 }
