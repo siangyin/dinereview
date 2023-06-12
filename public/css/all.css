@@ -1,0 +1,11 @@
+header,
+main,
+aside,
+section,
+footer {
+	border: 0.5px solid red;
+}
+
+main {
+	min-height: calc(100vh - 300px);
+}
