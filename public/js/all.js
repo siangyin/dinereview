@@ -4,10 +4,66 @@
 const BE_URL = "http://localhost:3000";
 let currentPath = window.location.pathname;
 
-const allPaths = {
-	register: { path: "/register.html" },
-	login: { path: "/login.html" },
-};
+const allPaths = [
+	{ title: "About", name: "about", path: "/about.html", role: "all" },
+	{ title: "Contact", name: "contact", path: "/contact.html", role: "all" },
+	{ title: "Register", name: "register", path: "/register.html", role: "all" },
+	{ title: "Login", name: "login", path: "/login.html", role: "all" },
+	{
+		title: "Restaurant",
+		name: "restaurant",
+		path: "/restaurant.html",
+		role: "all",
+	},
+	{
+		title: "Profile",
+		name: "profile",
+		path: "/user-profile.html",
+		role: "user",
+	},
+	{
+		title: "Favourite",
+		name: "favourite",
+		path: "/user-favourite.html",
+		role: "user",
+	},
+	{
+		title: "Reviews",
+		name: "reviews",
+		path: "/user-reviews.html",
+		role: "user",
+	},
+	{
+		title: "Review",
+		name: "review",
+		path: "/user-review.html",
+		role: "user",
+	},
+	{
+		title: "Restaurant",
+		name: "restaurant",
+		path: "/admin-restaurant.html",
+		role: "admin",
+	},
+	{
+		title: "User List",
+		name: "userlist",
+		path: "/admin-userlist.html",
+		role: "admin",
+	},
+	{
+		title: "Review List",
+		name: "reviewlist",
+		path: "/admin-reviewlist.html",
+		role: "admin",
+	},
+	{
+		title: "Restaurant List",
+		name: "restaurantlist",
+		path: "/admin-restaurantlist.html",
+		role: "admin",
+	},
+];
 
 // COMMON DOM ELEMENTS
 
