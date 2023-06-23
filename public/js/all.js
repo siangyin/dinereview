@@ -1,8 +1,9 @@
 "use strict";
 
 // CONSTANTS & VARIABLES
-const BE_URL = "http://localhost:3000";
+const BE_URL = window.location.origin; //"http://localhost:3000";
 let currentPath = window.location.pathname;
+let signedInUser;
 
 const allPaths = [
 	{ title: "About", name: "about", path: "/about.html", role: "all" },
@@ -144,7 +145,7 @@ const navbar = `
 const breadCrumb = `
     <nav class="uk-container uk-margin" aria-label="Breadcrumb">
 		<ul class="uk-breadcrumb">
-			<li><a href="#">Home</a></li>
+			<li><a href="/">Home</a></li>
 			<li><a href="#">Restaurants</a></li>
 		</ul>
 	</nav>
@@ -169,6 +170,50 @@ function appendDomItem(parentDom, htmlchild) {
 	parentDom.append(...div.childNodes);
 }
 
+function removeAllChildsElement(parentDom) {
+	parentDom.hasChildNodes() && parentDom.replaceChildren();
+}
+
+function addAlertMsg(parentDom, msg, status = "warning") {
+	// status: success || warning || danger
+	removeAllChildsElement(parentDom);
+	const tmp = document.createElement("div");
+	tmp.innerHTML = `
+          <div class="uk-alert-${status}" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>${msg}</p>
+          </div>
+          `;
+	parentDom.append(...tmp.childNodes);
+}
+
 function retrievePath(comparekey, compareval, returnval) {
 	return allPaths.find((item) => item[comparekey] == compareval)[returnval];
+}
+
+function validateForm(formFields) {
+	const reqBody = {};
+	const missingField = [];
+
+	// loop thru required field using id to find input value
+	for (const field of formFields) {
+		const fieldVal = document.getElementById(`${field.name}`).value;
+		if (Boolean(fieldVal)) {
+			reqBody[field.name] = fieldVal.trim();
+		} else {
+			reqBody[field.name] = undefined;
+			field.required && missingField.push(field.name);
+		}
+	}
+
+	return { reqBody, missingField };
+}
+
+function isEmptyStr(str) {
+	return !str || str.length === 0;
+}
+
+function validateEmail(email) {
+	const validRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	return validRegex.test(email);
 }

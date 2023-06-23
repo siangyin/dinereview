@@ -1,0 +1,14 @@
+CREATE DATABASE IF NOT EXISTS webad;
+
+USE webad1;
+
+CREATE TABLE
+  Users (
+    userId INT (5) AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(30) NOT NULL DEFAULT 'user',
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    profilePhoto TEXT
+  );
