@@ -86,10 +86,10 @@ const navbar = `
 					<ul class="uk-navbar-nav">
 						<li class="uk-active"><a href="/">DININGADVISOR</a></li>
 						<li>
-							<a href="/">Restaurants<span uk-navbar-parent-icon></span></a>
+							<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
 							<div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li class="uk-active"><a href="/">All Restaurants</a></li>
+                                    <li class="uk-active"><a href="/admin-restaurant.html?action=new">New Restaurant</a></li>
                                     <li><a href="/">Popular Restaurants</a></li>
                                     <li class="uk-nav-header">Cuisine</li>
                                     <li><a href="/">Asian</a></li>
@@ -209,11 +209,15 @@ function validateForm(formFields) {
 	return { reqBody, missingField };
 }
 
+function validateEmail(email) {
+	const validRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	return validRegex.test(email);
+}
+
 function isEmptyStr(str) {
 	return !str || str.length === 0;
 }
 
-function validateEmail(email) {
-	const validRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	return validRegex.test(email);
+function capitalised(word) {
+	return word.charAt(0).toUpperCase() + word.slice(1);
 }

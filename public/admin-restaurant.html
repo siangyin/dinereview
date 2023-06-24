@@ -20,8 +20,216 @@
 	</head>
 	<body>
 		<header id="mainHeader"></header>
-		<main id="mainContent"></main>
+		<main id="mainContent" class="uk-container">
+			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
+				New Restaurant
+			</h2>
+
+			<div id="alertMsg"></div>
+			<form id="restaurantForm" class="uk-grid-small uk-grid" uk-grid="">
+				<label
+					for="name"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-first-column"
+					>Restaurant Name<sup class="uk-text-danger uk-text-default"
+						>*</sup
+					></label
+				>
+				<input
+					class="uk-input uk-width-3-4"
+					id="name"
+					type="text"
+					placeholder="Restaurant Name"
+				/>
+				<label
+					for="description"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Description</label
+				>
+				<textarea
+					class="uk-textarea uk-width-3-4 uk-grid-margin"
+					rows="3"
+					id="description"
+					aria-label="Textarea"
+					placeholder="Description"
+				></textarea>
+				<label
+					for="website"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Website</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="website"
+					type="text"
+					placeholder="Website"
+				/>
+				<label
+					for="contact"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Contact</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="contact"
+					type="text"
+					placeholder="Contact"
+				/>
+				<label
+					for="add1"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Address 1<sup class="uk-text-danger uk-text-default">*</sup></label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="add1"
+					type="text"
+					placeholder="Address 1"
+				/>
+				<label
+					for="add2"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Address 2</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="add2"
+					type="text"
+					placeholder="Address 2"
+				/>
+				<label
+					for="add3"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Address 3</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="add3"
+					type="text"
+					placeholder="Address 3"
+				/>
+				<label
+					for="city"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>City</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="city"
+					type="text"
+					placeholder="City"
+				/>
+				<label
+					for="country"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Country</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="country"
+					type="text"
+					placeholder="Country"
+				/>
+				<label
+					for="postalCode"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Postal Code</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="postalCode"
+					type="number"
+					placeholder="Postal Code"
+				/>
+				<label
+					for="area"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Area</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="area"
+					type="text"
+					placeholder="Area"
+				/>
+				<label
+					for="type"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Type<sup class="uk-text-danger uk-text-default">*</sup></label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="type"
+					type="text"
+					placeholder="Establishment types, each value to divide with comma ','"
+				/>
+				<label
+					for="cuisine"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Cuisine<sup class="uk-text-danger uk-text-default">*</sup></label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="cuisine"
+					type="text"
+					placeholder="Cuisines type, each value to divide with comma ','"
+				/>
+				<label
+					for="openHrs"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Opening Hours<sup class="uk-text-danger uk-text-default"
+						>*</sup
+					></label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="openHrs"
+					type="text"
+					placeholder="Eg: Daily 09:00 AM - 10:00 PM; PH 10:00 AM - 11:00 PM"
+				/>
+				<label
+					for="primaryPhoto"
+					class="uk-width-1-4 uk-margin-auto-bottom uk-grid-margin uk-first-column"
+					>Primary photo</label
+				>
+				<input
+					class="uk-input uk-width-3-4 uk-grid-margin"
+					id="primaryPhoto"
+					type="text"
+					placeholder="Please input image address url"
+				/>
+				<label for="photos1" class="uk-width-1-4 uk-margin-auto-vertical"
+					>Photos</label
+				>
+				<div class="uk-width-3-4 uk-inline uk-padding-remove">
+					<input
+						class="uk-input uk-padding-small photosInput"
+						type="text"
+						placeholder="Please input image address url"
+						id="photos1"
+						name="photos1"
+					/>
+
+					<a
+						class="uk-form-icon uk-form-icon-flip addPhotoBtn"
+						uk-icon="plus-circle"
+						uk-tooltip="title: additional photo; pos: top-center"
+						onclick="appendPhotosInput()"
+					></a>
+				</div>
+			</form>
+			<div
+				class="uk-flex uk-flex-center uk-flex-right@m uk-margin-medium uk-margin-large-bottom"
+			>
+				<button
+					id="submitBtn"
+					class="uk-button uk-button-danger uk-margin-left"
+				>
+					Submit
+				</button>
+			</div>
+		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
+		<script src="js/admin-restaurant.js"></script>
 	</body>
 </html>
