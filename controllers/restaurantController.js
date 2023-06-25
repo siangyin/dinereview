@@ -175,13 +175,33 @@ const getRestaurantDetail = async (req, res) => {
 		if (row[0]) {
 			data["restaurant"] = row[0];
 
-			sql = `select * from Photos where restaurantId = ?`;
+			sql = `select * from Photos where restaurantId = ? and reviewId IS NULL and addedBy IS NULL`;
 			[row] = await pool.query(sql, [id]);
 			data["photos"] = row;
 
 			sql = `select * from Reviews where restaurantId = ?`;
 			[row] = await pool.query(sql, [id]);
-			data["reviews"] = row;
+			data.avgRating = null;
+			data.totalReviews = 0;
+			data.reviews = [];
+			if (Boolean(row.length)) {
+				const [count] = await pool.query(
+					`select AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${id}`
+				);
+				data.totalReviews = Number.parseInt(count[0].counts);
+				data.avgRating = +parseFloat(count[0].avg).toFixed(1) ?? null;
+
+				for (let item of row) {
+					sql = `select photoId, photoUrl from Photos where reviewId = ${item.reviewId}`;
+					const [row2] = await pool.query(sql);
+
+					if (Boolean(row2)) {
+						data.reviews.push({ ...item, photos: row2 });
+					} else {
+						data.reviews.push({ ...item, photos: [] });
+					}
+				}
+			}
 
 			return res.status(200).json({
 				status: "OK",
@@ -203,6 +223,53 @@ const getRestaurantDetail = async (req, res) => {
 
 const getRestaurantsList = async (req, res) => {
 	try {
+		const data = [];
+		let sql = `select * from Restaurants where status = ?`;
+		let [row] = await pool.query(sql, ["active"]);
+
+		if (Boolean(row)) {
+			for (const i of row) {
+				const db = {
+					restaurantId: i.restaurantId,
+					name: i.name,
+					area: i.area,
+					totalReviews: 0,
+					avgRating: null,
+					type: i.type.split(",").map((str) => str.trim()),
+					cuisine: i.cuisine.split(",").map((str) => str.trim()),
+					photos: null,
+					status: i.status,
+				};
+
+				//  get Restaurant Primary Photo
+				const [row2] = await pool.query(
+					`select * from Photos where restaurantId = ? and defaultPhoto =?`,
+					[i.restaurantId, true]
+				);
+
+				db.photos = row2[0].photoUrl ?? null;
+
+				const [count] = await pool.query(
+					`select AVG(rating) as avg, count(*) as counts from Reviews where restaurantId = ${i.restaurantId}`
+				);
+
+				db.totalReviews = Number.parseInt(count[0].counts);
+				db.avgRating = +parseFloat(count[0].avg).toFixed(1) ?? null;
+
+				data.push(db);
+			}
+
+			return res.status(200).json({
+				status: "OK",
+				count: data.length,
+				data: data,
+			});
+		}
+
+		res.status(404).json({
+			status: "Not found",
+			msg: `No data found`,
+		});
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",

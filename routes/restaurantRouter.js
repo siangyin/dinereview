@@ -8,7 +8,7 @@ const {
 	getRestaurantsList,
 } = require("../controllers/restaurantController");
 
-router.route("/").get(getRestaurantsList).post(addRestaurant);
+router.route("/").post(addRestaurant).get(getRestaurantsList);
 router.route("/:id").get(getRestaurantDetail).patch(updateRestaurant);
 
 module.exports = router;
