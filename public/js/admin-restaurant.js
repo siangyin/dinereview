@@ -1,11 +1,5 @@
 "use strict";
 
-window.addEventListener("DOMContentLoaded", () => {
-	// for (const item of allFields) {
-	// 	item.name === "photos" ? appendPhotosInput() : appendFormItem(item);
-	// }
-});
-
 // CONSTANTS & VARIABLES
 const pageStatus = {
 	loading: false,
@@ -169,7 +163,7 @@ function appendPhotosInput() {
 
 function updateExistingPhotosInput(photos) {
 	const main = photos.filter((item) => item.defaultPhoto);
-	console.log(main);
+
 	if (Boolean(main.length)) {
 		const primaryPhoto = document.getElementById("primaryPhoto");
 		main[0].photoUrl && primaryPhoto.setAttribute("value", main[0].photoUrl);
@@ -180,7 +174,7 @@ function updateExistingPhotosInput(photos) {
 	const photosArr = photos.filter(
 		(item) => !item.defaultPhoto && !item.reviewId
 	);
-	console.log(photosArr);
+
 	if (Boolean(photosArr.length)) {
 		photosArr.length > 0 &&
 			photosArr.forEach((item, i) => {
@@ -227,6 +221,7 @@ function removeAllInput() {
 		item.value = "";
 	});
 }
+
 async function getRestaurant(id) {
 	pageStatus.loading = true;
 	let url = `${BE_URL}/api/v1/restaurant/${id}`;
@@ -253,7 +248,7 @@ async function getRestaurant(id) {
 				}
 			});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
 
@@ -285,7 +280,7 @@ async function postRestaurant(payload) {
 				}
 			});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
 
@@ -311,7 +306,7 @@ submitBtn.addEventListener("click", (e) => {
 	const primaryPhoto = document.getElementById("primaryPhoto");
 	const photosArr = [];
 	let tempPhoto = {};
-	if (primaryPhoto.value) {
+	if (Boolean(primaryPhoto.value)) {
 		tempPhoto = { photoUrl: primaryPhoto.value.trim(), defaultPhoto: true };
 		primaryPhoto.hasAttribute("photoid") &&
 			Object.assign(tempPhoto, {
@@ -323,9 +318,8 @@ submitBtn.addEventListener("click", (e) => {
 
 	photosInputList.length > 0 &&
 		photosInputList.forEach((item) => {
-			console.log(item);
 			tempPhoto = {};
-			if (item.value) {
+			if (Boolean(item.value)) {
 				tempPhoto = { photoUrl: item.value.trim() };
 				item.hasAttribute("photoid") &&
 					Object.assign(tempPhoto, {
@@ -335,7 +329,7 @@ submitBtn.addEventListener("click", (e) => {
 				photosArr.push(tempPhoto);
 			}
 		});
-	console.log(photosArr);
+
 	if (missingField.length == 0) {
 		const payload = {
 			restaurant: { ...formValues },

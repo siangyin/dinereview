@@ -45,7 +45,7 @@ const addRestaurant = async (req, res) => {
 			// change restaurant status from draft to active
 			sql = "update restaurants set status = ? where restaurantId = ?";
 			[row] = await pool.query(sql, ["active", restaurant.restaurantId]);
-			console.log(row);
+
 			return res.status(200).json({
 				status: "OK",
 				msg: "Restaurant has been added successfully",
@@ -90,18 +90,48 @@ const updateRestaurant = async (req, res) => {
 				msg.push("restaurant table update failed");
 			} else {
 				// Restaurant updated successfully
-				if (photos) {
+				if (Boolean(photos.length)) {
+					const existingId = [];
+					const insertPhoto = [];
+					const updatePhoto = [];
+					photos.forEach((item) => {
+						if (item.photoId) {
+							existingId.push(item.photoId);
+							updatePhoto.push(item);
+						} else {
+							insertPhoto.push(item);
+						}
+					});
+
 					// to update Photos, remove existing and replace current photos
 					// E.G. insert into Photos (restaurantId, photoUrl, defaultPhoto, createdOn, addedBy)
-					sql = `delete from photos where restaurantId =? and reviewId IS NULL and addedBy IS NULL`;
+					sql = `delete from photos where restaurantId =? and reviewId IS NULL and addedBy IS NULL and photoId NOT IN (${existingId.toString()})`;
 					[row] = await pool.query(sql, [id]);
-					for (const item of photos) {
-						sql = `insert into Photos (restaurantId, photoUrl, defaultPhoto) values (?, ? ,?)`;
-						sqlVal = [id, item.photoUrl, item.defaultPhoto ?? false];
-						[row] = await pool.query(sql, sqlVal);
 
-						!row.insertId &&
-							msg.push(`restaurant photo ${item.photoUrl} insertion failed`);
+					if (Boolean(updatePhoto.length)) {
+						// update photo
+						for (const item of updatePhoto) {
+							sql = `update Photos set photoUrl = ?, defaultPhoto = ? where photoId = ?`;
+							sqlVal = [
+								item.photoUrl,
+								item.defaultPhoto ?? false,
+								item.photoId,
+							];
+							[row] = await pool.query(sql, sqlVal);
+							!row.affectedRows &&
+								msg.push(`photoId ${item.photoId} update failed`);
+						}
+					}
+
+					if (Boolean(insertPhoto.length)) {
+						// insert photo
+						for (const item of insertPhoto) {
+							sql = `insert into Photos (restaurantId, photoUrl, defaultPhoto) values (?, ? ,?)`;
+							sqlVal = [id, item.photoUrl, item.defaultPhoto ?? false];
+							[row] = await pool.query(sql, sqlVal);
+							!row.insertId &&
+								msg.push(`photo ${item.photoUrl} insertion failed`);
+						}
 					}
 				}
 			}
@@ -115,7 +145,7 @@ const updateRestaurant = async (req, res) => {
 				"select * from photos where restaurantId =? and reviewId IS NULL and addedBy IS NULL";
 			[row] = await pool.query(sql, [id]);
 			updatedRestaurant["photos"] = [...row];
-			console.log(updatedRestaurant);
+
 			return res.status(200).json({
 				status: "OK",
 				msg: "Restaurant has been added successfully",

@@ -67,8 +67,9 @@ async function submitUserAccess(action, reqBody) {
 			.then((res) => res.json())
 			.then((res) => {
 				if (res.status == "OK") {
+					sessionStorage.removeItem("token");
 					removeAllChildsElement(alertMsg);
-					signedInUser = res.data;
+					currentUser = res.data;
 					sessionStorage.setItem("token", res.token);
 					window.location.assign("/index.html");
 				} else {
@@ -77,6 +78,7 @@ async function submitUserAccess(action, reqBody) {
 			});
 	} catch (error) {
 		console.log(error);
+		sessionStorage.removeItem("token");
 	}
 }
 

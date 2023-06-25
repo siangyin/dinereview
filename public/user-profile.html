@@ -20,7 +20,56 @@
 	</head>
 	<body>
 		<header id="mainHeader"></header>
-		<main id="mainContent"></main>
+		<main id="mainContent" class="uk-container uk-margin">
+			<ul class="uk-subnav uk-subnav-divider" uk-margin>
+				<li class="uk-active"><a href="/user-profile.html">Profile</a></li>
+				<li><a href="/user-reviews.html">Reviews</a></li>
+				<li><a href="/user-favourite.html">Favourite</a></li>
+			</ul>
+			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
+				Personal Detail
+			</h2>
+
+			<div class="uk-container uk-flex uk-flex-center">
+				<form class="uk-grid-small uk-grid" uk-grid>
+					<label
+						class="uk-width-1-4 uk-margin-auto-bottom uk-first-column"
+						for="username"
+						>Username</label
+					>
+					<input
+						class="uk-input uk-width-3-4"
+						id="username"
+						type="text"
+						placeholder="Username"
+					/>
+
+					<label
+						class="uk-width-1-4 uk-margin-auto-bottom uk-first-column"
+						for="email"
+						>Email</label
+					>
+					<input
+						class="uk-input uk-width-3-4"
+						id="email"
+						type="email"
+						placeholder="Email"
+					/>
+
+					<label
+						class="uk-width-1-4 uk-margin-auto-bottom uk-first-column"
+						for="password"
+						>Password</label
+					>
+					<input
+						class="uk-input uk-width-3-4"
+						id="password"
+						type="password"
+						placeholder="Password"
+					/>
+				</form>
+			</div>
+		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
 	</body>

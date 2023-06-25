@@ -3,7 +3,7 @@
 // CONSTANTS & VARIABLES
 const BE_URL = window.location.origin; //"http://localhost:3000";
 let currentPath = window.location.pathname;
-let signedInUser;
+let currentUser;
 
 const allPaths = [
 	{ title: "About", name: "about", path: "/about.html", role: "all" },
@@ -127,9 +127,9 @@ const navbar = `
 	"path"
 )}>Login</a></li>
 									<li class="uk-nav-header">Account</li>
-									<li><a href="/user-profile">Profile</a></li>
-									<li><a href="/user-reviews">Reviews</a></li>
-									<li><a href="/user-favourite">Favourite</a></li>
+									<li><a href="/user-profile.html">Profile</a></li>
+									<li><a href="/user-reviews.html">Reviews</a></li>
+									<li><a href="/user-favourite.html">Favourite</a></li>
 									<li class="uk-nav-divider"></li>
 									<li><a href="/">Log out</a></li>
 								</ul>
@@ -154,11 +154,11 @@ const breadCrumb = `
 const footer = `
     <div class="uk-position-bottom-center uk-position-relative uk-margin uk-text-center">
         <ul class="uk-subnav uk-margin-remove-bottom">
-            <li class="uk-text-bold"><a href="#">DINEADVISOR</a></li>
+            <li class="uk-text-bold"><a href="#">DININGADVISOR</a></li>
             <li><a href="/about.html">About us</a></li>
             <li><a href="/contact.html">Contact us</a></li>
         </ul>
-        <span class="uk-text-meta">© 2023 DineAdvisor. All rights reserved.</span>
+        <span class="uk-text-meta">© 2023 DiningAdvisor. All rights reserved.</span>
     </div>
 `;
 
