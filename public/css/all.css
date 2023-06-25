@@ -1,10 +1,10 @@
-header,
+/* header,
 main,
 aside,
 section,
 footer {
-	border: 0.5px solid red;
-}
+	border: 0.2px solid whitesmoke;
+} */
 
 main {
 	min-height: calc(100vh - 300px);

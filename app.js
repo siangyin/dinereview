@@ -18,4 +18,5 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/index.html");
 });
 
+app.use((req, res) => res.status(404).send("Route does not exist"));
 app.listen(PORT, () => console.log("server run on", PORT));
