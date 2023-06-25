@@ -20,8 +20,643 @@
 	</head>
 	<body>
 		<header id="mainHeader"></header>
-		<main id="mainContent"></main>
+		<main id="mainContent" class="uk-container uk-margin">
+			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
+				New Restaurant
+			</h2>
+			<!-- ROW 1: TWO COLUMNS PHOTO + ABOUT START-->
+			<div class="uk-child-width-expand@s" uk-grid>
+				<!-- COLUMN 1 - PHOTO-->
+				<div class="uk-width-1-3@s">
+					<!-- MAIN PHOTOS SLIDER -->
+					<div
+						class="uk-position-relative uk-visible-toggle uk-light"
+						tabindex="-1"
+						uk-slideshow
+					>
+						<ul class="uk-slideshow-items">
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+									alt=""
+									uk-cover
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80"
+									alt=""
+									uk-cover
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+									alt=""
+									uk-cover
+								/>
+							</li>
+						</ul>
+
+						<a
+							class="uk-position-center-left uk-position-small uk-hidden-hover"
+							href="#"
+							uk-slidenav-previous
+							uk-slideshow-item="previous"
+						></a>
+						<a
+							class="uk-position-center-right uk-position-small uk-hidden-hover"
+							href="#"
+							uk-slidenav-next
+							uk-slideshow-item="next"
+						></a>
+					</div>
+
+					<!-- THUMBNAILS -->
+					<div
+						class="uk-position-relative uk-visible-toggle uk-light uk-margin-small"
+						tabindex="-1"
+						uk-slider
+					>
+						<ul class="uk-slider-items uk-child-width-1-3">
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+								/>
+							</li>
+							<li>
+								<img
+									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+									width="400"
+									height="300"
+									alt=""
+									onclick="photoOnClick()"
+								/>
+							</li>
+						</ul>
+
+						<a
+							class="uk-position-center-left uk-position-small uk-hidden-hover"
+							href="#"
+							uk-slidenav-previous
+							uk-slider-item="previous"
+						></a>
+						<a
+							class="uk-position-center-right uk-position-small uk-hidden-hover"
+							href="#"
+							uk-slidenav-next
+							uk-slider-item="next"
+						></a>
+					</div>
+				</div>
+
+				<!-- COLUMN 2 - ABOUT-->
+				<div class="uk-width-2-3@s">
+					<div uk-grid>
+						<div class="uk-width-expand@s">
+							<div class="uk-inline">
+								<span class="uk-text-middle uk-text-emphasis uk-text-lead"
+									>4.5</span
+								>
+
+								<span class="starIcons">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 576 512"
+									>
+										<path
+											d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+										/>
+									</svg>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 576 512"
+									>
+										<path
+											d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+										/>
+									</svg>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 576 512"
+									>
+										<path
+											d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+										/>
+									</svg>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 576 512"
+									>
+										<path
+											d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+										/>
+									</svg>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										height="1em"
+										viewBox="0 0 576 512"
+									>
+										<path
+											d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+										/>
+									</svg>
+								</span>
+
+								<span class="uk-divider-vertical uk-margin-small-left"></span>
+								<span
+									class="uk-margin-small-left uk-text-middle uk-text-emphasis uk-text-lead"
+									>101 Reviews</span
+								>
+							</div>
+							<div id="tags" class="uk-margin-remove">
+								Bar/ Bistro, Cafés, Casual, Asian
+							</div>
+						</div>
+						<div class="uk-width-auto@s">
+							<ul class="uk-iconnav">
+								<li><span uk-icon="icon: heart"></span> Save</li>
+								<li><span uk-icon="icon: file-edit"></span> Review</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- ABOUT RESTAURANT-->
+					<div
+						class="uk-child-width-expand uk-grid-row-collapse uk-grid-column-small uk-margin-small-top"
+						uk-grid
+					>
+						<div class="uk-width-1-3">
+							<strong>Address</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>2 Bayfront Ave, #B1 - 71, Singapore 018972</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Area</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>Marina Bay</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Website</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>https://wolfgangpuck.com/dining/cut-singapore/</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Contact</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>+65 6688 8517</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Opening Hours</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>Daily 09:00 AM - 10:00 PM</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Establishment Type</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>Bar/ Bistro, Cafés, Casual</div>
+						</div>
+						<div class="uk-width-1-3">
+							<strong>Cuisine</strong>
+						</div>
+						<div class="uk-width-2-3">
+							<div>Asian</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- TWO COLUMNS PHOTO + ABOUT END-->
+
+			<!-- ROW 2 : DESCRIPTION -->
+
+			<div class="uk-child-width-expand@s" uk-grid>
+				<dl>
+					<dt>Description</dt>
+					<dd>
+						CUT by Wolfgang Puck’s first Asian outpost can be found at Marina
+						Bay Sands Singapore. The critically acclaimed steak restaurant
+						features a comfortably modern dining room designed by esteemed
+						hospitality designer Tony Chi. The menu presents a contemporary
+						twist on the classic steak restaurant, featuring the world’s finest
+						meats, poultry, and seafood, all complemented by house-made sauces
+						and delectable sides. An extensive international wine list offers
+						more than 500 outstanding selections. CUT is proud to have received
+						a One Star rating in Singapore’s first edition of the Michelin
+						Guide, in 2016.
+					</dd>
+				</dl>
+			</div>
+
+			<!-- ROW 3: REVIEWS + RATINGS -->
+
+			<ul uk-accordion>
+				<li class="uk-open">
+					<div
+						class="uk-accordion-title uk-text-middle uk-text-emphasis uk-text-lead"
+					>
+						<u>Reviews (101)</u>
+					</div>
+					<div class="uk-accordion-content uk-margin-small">
+						<div class="uk-inline uk-margin-small">
+							<span class="starIcons">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 576 512"
+								>
+									<path
+										d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+									/>
+								</svg>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 576 512"
+								>
+									<path
+										d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+									/>
+								</svg>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 576 512"
+								>
+									<path
+										d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+									/>
+								</svg>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 576 512"
+								>
+									<path
+										d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+									/>
+								</svg>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 576 512"
+								>
+									<path
+										d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+									/>
+								</svg>
+							</span>
+							<strong class="uk-text-middle uk-text-emphasis"
+								>Average Ratings 4.5 of 5</strong
+							>
+						</div>
+						<hr class="uk-margin-small" />
+						<!-- User's Reviewssss list start here-->
+						<div class="uk-child-width-expand@s" uk-grid>
+							<!-- USER 1-->
+							<div class="uk-width-1-3@s">
+								<div class="uk-child-width-expand" uk-grid>
+									<div class="uk-width-auto@m">
+										<img
+											class="uk-comment-avatar uk-border-circle"
+											src="https://www.fakepersongenerator.com/Face/female/female20151024220257538.jpg"
+											width="80"
+											height="80"
+											alt=""
+										/>
+									</div>
+									<div class="uk-width-expand uk-margin-small">
+										<h4 class="uk-comment-title uk-margin-remove">
+											UsernameABC
+										</h4>
+										<div
+											class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top"
+										>
+											<span>26 Jun 2023</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- USER 1 END -->
+							<!-- REVIEW 1-->
+							<div class="uk-width-2-3@s uk-margin-small">
+								<div class="uk-inline">
+									<span class="uk-text-middle uk-text-emphasis">4.5</span>
+									<span class="starIcons">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+									</span>
+
+									<span class="uk-divider-vertical uk-margin-small-left"></span>
+									<span
+										class="uk-margin-small-left uk-text-middle uk-text-emphasis"
+										>Subjects......</span
+									>
+								</div>
+								<!-- review comments -->
+								<div class="uk-comment-body">
+									<p>
+										Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+										diam nonumy eirmod tempor invidunt ut labore et dolore magna
+										aliquyam erat, sed diam voluptua. At vero eos et accusam et
+										justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+										sea takimata sanctus est Lorem ipsum dolor sit amet.
+									</p>
+								</div>
+								<!--review content end -->
+								<!-- THUMBNAILS -->
+								<div
+									class="uk-position-relative uk-visible-toggle uk-light uk-margin-small"
+									tabindex="-1"
+									uk-slider
+								>
+									<ul class="uk-slider-items">
+										<li>
+											<img
+												src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+												width="100"
+												height="75"
+												alt=""
+											/>
+										</li>
+										<li>
+											<img
+												src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+												width="100"
+												height="75"
+												alt=""
+											/>
+										</li>
+									</ul>
+
+									<a
+										class="uk-position-center-left uk-position-small uk-hidden-hover"
+										href="#"
+										uk-slidenav-previous
+										uk-slider-item="previous"
+									></a>
+									<a
+										class="uk-position-center-right uk-position-small uk-hidden-hover"
+										href="#"
+										uk-slidenav-next
+										uk-slider-item="next"
+									></a>
+								</div>
+							</div>
+							<!-- REVIEW 1 END -->
+							<hr class="uk-width-3-3 uk-margin-small uk-margin-medium-left" />
+							<!-- USER 2 -->
+							<div class="uk-width-1-3@s">
+								<div class="uk-child-width-expand" uk-grid>
+									<div class="uk-width-auto@m">
+										<img
+											class="uk-comment-avatar uk-border-circle"
+											src="https://www.fakepersongenerator.com/Face/female/female20151024220257538.jpg"
+											width="80"
+											height="80"
+											alt=""
+										/>
+									</div>
+									<div class="uk-width-expand uk-margin-small">
+										<h4 class="uk-comment-title uk-margin-remove">
+											UsernameABC
+										</h4>
+										<div
+											class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top"
+										>
+											<span>26 Jun 2023</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- USER 2 END -->
+							<!-- REVIEW 2 -->
+							<div class="uk-width-2-3@s uk-margin-small">
+								<div class="uk-inline">
+									<span class="uk-text-middle uk-text-emphasis">4.5</span>
+									<span class="starIcons">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											height="1em"
+											viewBox="0 0 576 512"
+										>
+											<path
+												d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+											/>
+										</svg>
+									</span>
+
+									<span class="uk-divider-vertical uk-margin-small-left"></span>
+									<span
+										class="uk-margin-small-left uk-text-middle uk-text-emphasis"
+										>Subjects......</span
+									>
+								</div>
+								<!-- review comments -->
+								<div class="uk-comment-body">
+									<p>
+										Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+										diam nonumy eirmod tempor invidunt ut labore et dolore magna
+										aliquyam erat, sed diam voluptua. At vero eos et accusam et
+										justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+										sea takimata sanctus est Lorem ipsum dolor sit amet.
+									</p>
+								</div>
+								<!--review content end -->
+								<!-- THUMBNAILS -->
+								<div
+									class="uk-position-relative uk-visible-toggle uk-light uk-margin-small"
+									tabindex="-1"
+									uk-slider
+								>
+									<ul class="uk-slider-items">
+										<li>
+											<img
+												src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+												width="100"
+												height="75"
+												alt=""
+											/>
+										</li>
+										<li>
+											<img
+												src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+												width="100"
+												height="75"
+												alt=""
+											/>
+										</li>
+									</ul>
+
+									<a
+										class="uk-position-center-left uk-position-small uk-hidden-hover"
+										href="#"
+										uk-slidenav-previous
+										uk-slider-item="previous"
+									></a>
+									<a
+										class="uk-position-center-right uk-position-small uk-hidden-hover"
+										href="#"
+										uk-slidenav-next
+										uk-slider-item="next"
+									></a>
+								</div>
+							</div>
+							<!-- REVIEW 2 END -->
+						</div>
+
+						<!-- User's Reviewssss list end here-->
+					</div>
+				</li>
+			</ul>
+		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
+		<script src="js/restaurant.js"></script>
 	</body>
 </html>
