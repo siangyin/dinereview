@@ -9,3 +9,8 @@ footer {
 main {
 	min-height: calc(100vh - 300px);
 }
+
+.starIcons > svg {
+	fill: #ffd166;
+	margin-bottom: 5px;
+}
