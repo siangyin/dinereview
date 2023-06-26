@@ -177,13 +177,17 @@ const getRestaurantDetail = async (req, res) => {
 
 			sql = `select * from Photos where restaurantId = ? and reviewId IS NULL and addedBy IS NULL`;
 			[row] = await pool.query(sql, [id]);
+			// get admin uploaded photos
 			data["photos"] = row;
 
+			// get all reviews of query restaurant
 			sql = `select * from Reviews where restaurantId = ?`;
 			[row] = await pool.query(sql, [id]);
 			data.avgRating = null;
 			data.totalReviews = 0;
 			data.reviews = [];
+
+			// if found related review of query restaurant
 			if (Boolean(row.length)) {
 				const [count] = await pool.query(
 					`select AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${id}`
@@ -191,7 +195,18 @@ const getRestaurantDetail = async (req, res) => {
 				data.totalReviews = Number.parseInt(count[0].counts);
 				data.avgRating = +parseFloat(count[0].avg).toFixed(1) ?? null;
 
+				// Loop thru each Reviews row
 				for (let item of row) {
+					// find review's user detail
+					sql = `select * from Users where userId =${item.userId}`;
+					const [user] = await pool.query(sql);
+					console.log(user);
+					if (Boolean(user[0])) {
+						item.username = user[0].username;
+						item.profilePhoto = user[0].profilePhoto;
+					}
+
+					// find review's relevant photos
 					sql = `select photoId, photoUrl from Photos where reviewId = ${item.reviewId}`;
 					const [row2] = await pool.query(sql);
 

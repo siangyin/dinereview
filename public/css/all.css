@@ -12,5 +12,10 @@ main {
 
 .starIcons > svg {
 	fill: #ffd166;
-	margin-bottom: 5px;
+	margin-right: -5px;
+}
+
+.user-review-photo {
+	height: 75px;
+	width: auto;
 }

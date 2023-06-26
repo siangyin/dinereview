@@ -17,7 +17,7 @@ const addReview = async (req, res) => {
 			sql = `insert into Reviews (restaurantId, userId, title, content, rating) values(?,?,?,?,?)`;
 			sqlVal = [restaurantId, userId, review.title ?? null, content, rating];
 			let [row] = await pool.query(sql, sqlVal);
-			console.log(row);
+
 			if (Boolean(row.insertId)) {
 				review.reviewId = row.insertId;
 
@@ -33,7 +33,7 @@ const addReview = async (req, res) => {
 							userId,
 						];
 						[row] = await pool.query(sql, sqlVal);
-						console.log(row);
+
 						!row.insertId &&
 							msg.push(`photo ${item.photoUrl} insertion failed`);
 					}
@@ -43,7 +43,7 @@ const addReview = async (req, res) => {
 				sql = `update Reviews set status = ? where reviewId =?`;
 				sqlVal = ["active", review.reviewId];
 				[row] = await pool.query(sql, sqlVal);
-				console.log(row);
+
 				if (row.affectedRows) {
 					return res.status(200).json({
 						status: "OK",
