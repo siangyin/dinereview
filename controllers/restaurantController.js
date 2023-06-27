@@ -200,7 +200,7 @@ const getRestaurantDetail = async (req, res) => {
 					// find review's user detail
 					sql = `select * from Users where userId =${item.userId}`;
 					const [user] = await pool.query(sql);
-					console.log(user);
+
 					if (Boolean(user[0])) {
 						item.username = user[0].username;
 						item.profilePhoto = user[0].profilePhoto;

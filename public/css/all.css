@@ -19,3 +19,13 @@ main {
 	height: 75px;
 	width: auto;
 }
+
+.displayNone {
+	display: none;
+}
+
+.restaurantImg {
+	height: 150px;
+	min-height: 150px;
+	width: auto;
+}
