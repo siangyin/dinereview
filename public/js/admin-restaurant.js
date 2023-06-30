@@ -270,12 +270,18 @@ async function postRestaurant(payload) {
 		})
 			.then((res) => res.json())
 			.then((res) => {
+				window.scrollTo({ top: 0, behavior: "smooth" });
 				if (res.status !== "OK") {
 					addAlertMsg(alertMsg, res.msg.message ?? res.msg);
 				} else {
 					removeAllChildsElement(alertMsg);
-					addAlertMsg(alertMsg, res.msg, "success");
 					removeAllInput();
+					UIkit.notification({
+						message: "<span uk-icon='icon: check'></span>New restaurant saved…",
+						status: "success",
+						pos: "bottom-right",
+						timeout: 1000,
+					});
 					// window.location.assign("/index.html");
 				}
 			});
@@ -342,5 +348,6 @@ submitBtn.addEventListener("click", (e) => {
 				missingField.length > 1 ? "fields:" : "field:"
 			} ` + missingField.toString().replaceAll(",", ", ");
 		addAlertMsg(alertMsg, msg);
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	}
 });
