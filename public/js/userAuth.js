@@ -54,9 +54,9 @@ switch (currentPath) {
 }
 
 async function submitUserAccess(action, reqBody) {
-	let url = `${BE_URL}/api/v1/auth/${action.toLowerCase()}`;
+	let beUrl = `${BE_URL}/api/v1/auth/${action.toLowerCase()}`;
 	try {
-		fetch(url, {
+		fetch(beUrl, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -87,7 +87,7 @@ async function submitUserAccess(action, reqBody) {
 // EVENT LISTENER
 // based on input onblur
 formInput.forEach((item) => {
-	item.addEventListener("focus", (e) => {
+	item.addEventListener("focus", () => {
 		item.className = "uk-input uk-margin-small-bottom";
 	});
 
@@ -102,8 +102,7 @@ formInput.forEach((item) => {
 });
 
 // based on button onclick
-userAccessBtn.addEventListener("click", (e) => {
-	e.preventDefault();
+userAccessBtn.addEventListener("click", () => {
 	const checkForm = validateForm(formFields);
 	// if no missing field submit form request
 	if (checkForm.missingField.length == 0) {
