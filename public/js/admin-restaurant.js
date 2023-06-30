@@ -224,9 +224,9 @@ function removeAllInput() {
 
 async function getRestaurant(id) {
 	pageStatus.loading = true;
-	let url = `${BE_URL}/api/v1/restaurant/${id}`;
+	let beUrl = `${BE_URL}/api/v1/restaurant/${id}`;
 	try {
-		fetch(url, {
+		fetch(beUrl, {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
@@ -253,14 +253,14 @@ async function getRestaurant(id) {
 }
 
 async function postRestaurant(payload) {
-	let url = `${BE_URL}/api/v1/restaurant`;
+	let beUrl = `${BE_URL}/api/v1/restaurant`;
 	let method = "POST";
 	if (pageStatus.action === "edit" && pageStatus.id) {
 		method = "PATCH";
-		url += `/${pageStatus.id}`;
+		beUrl += `/${pageStatus.id}`;
 	}
 	try {
-		fetch(url, {
+		fetch(beUrl, {
 			method: method,
 			headers: {
 				"Content-Type": "application/json",

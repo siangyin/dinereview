@@ -20,9 +20,9 @@ function photoOnClick(e) {
 }
 
 async function getRestaurant(id) {
-	let url = `${BE_URL}/api/v1/restaurant/${id}`;
+	let beUrl = `${BE_URL}/api/v1/restaurant/${id}`;
 	try {
-		fetch(url, {
+		fetch(beUrl, {
 			method: "GET",
 			headers: {
 				Accept: "application/json",

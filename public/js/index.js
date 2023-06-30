@@ -17,10 +17,10 @@ async function getAllRestaurants() {
 	alertMsg.removeAttribute("class");
 	removeAllChildsElement(alertMsg);
 
-	const url = `${BE_URL}/api/v1/restaurant`;
+	const beUrl = `${BE_URL}/api/v1/restaurant`;
 	const failMsg = `<span><span uk-icon="warning"></span><span class="uk-text-middle"> Something went wrong, failed to load data</span></span>`;
 	try {
-		fetch(url, {
+		fetch(beUrl, {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
