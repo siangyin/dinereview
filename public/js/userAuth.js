@@ -70,9 +70,27 @@ async function submitUserAccess(action, reqBody) {
 					sessionStorage.removeItem("token");
 					sessionStorage.removeItem("user");
 					removeAllChildsElement(alertMsg);
-					sessionStorage.setItem("user", JSON.stringify(res.data));
+					// store user data in sessionStorage
+					sessionStorage.setItem(
+						"user",
+						JSON.stringify(
+							new User(
+								res.data.userId,
+								res.data.username,
+								res.data.email,
+								res.data.role
+							)
+						)
+					);
 					sessionStorage.setItem("token", res.token);
-					window.location.assign("/index.html");
+					// if have history back to last visited url or go home
+					if (sessionStorage.getItem("history")) {
+						const backToLastUrl = sessionStorage.getItem("history");
+						sessionStorage.removeItem("history");
+						window.location.assign(backToLastUrl);
+					} else {
+						window.location.assign("/index.html");
+					}
 				} else {
 					addAlertMsg(alertMsg, res.msg);
 				}
