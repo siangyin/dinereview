@@ -3,7 +3,7 @@
 // CONSTANTS & VARIABLES
 const pageStatus = {};
 
-let currentParams = new URLSearchParams(window.location.search);
+const currentParams = new URLSearchParams(window.location.search);
 // eg: restaurantId=1
 
 for (const [key, value] of currentParams.entries()) {

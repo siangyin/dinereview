@@ -7,7 +7,7 @@ const pageStatus = {
 };
 // {loading: false, action: 'new', id: '1'}
 
-let currentParams = new URLSearchParams(window.location.search);
+const currentParams = new URLSearchParams(window.location.search);
 // eg: action=new&id=1
 
 for (const [key, value] of currentParams.entries()) {
@@ -292,7 +292,7 @@ async function postRestaurant(payload) {
 
 // EVENT LISTENER
 
-submitBtn.addEventListener("click", (e) => {
+submitBtn.addEventListener("click", () => {
 	const photosInputList = document.querySelectorAll(".photosInput");
 	// check values
 	let missingField = [];
