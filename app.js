@@ -12,10 +12,12 @@ app.use(express.json());
 const authRouter = require("./routes/authRouter");
 const restaurantRouter = require("./routes/restaurantRouter");
 const reviewRouter = require("./routes/reviewRouter");
+const userRouter = require("./routes/userRouter");
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/restaurant", restaurantRouter);
 app.use("/api/v1/review", reviewRouter);
+app.use("/api/v1/user", userRouter);
 
 app.get("/index.html", (req, res) => {
 	res.sendFile(__dirname + "/index.html");

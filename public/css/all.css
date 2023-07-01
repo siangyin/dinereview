@@ -29,3 +29,15 @@ main {
 	min-height: 150px;
 	width: auto;
 }
+
+.uk-notification-message {
+	background-color: white;
+}
+
+.uk-notification-message-success {
+	border: 1.5px solid lightseagreen;
+}
+
+.uk-notification-message-danger {
+	border: 1.5px solid lightcoral;
+}

@@ -27,71 +27,108 @@
 				<li><a href="/user-favourite.html">Favourite</a></li>
 			</ul>
 			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
-				Personal Detail
+				Profile Detail
 			</h2>
 
 			<div uk-grid>
-				<div class="uk-width-1-3">
+				<div class="uk-width-1-3@s">
 					<div class="uk-card-muted uk-text-center">
 						<img
+							id="profilePhotoImg"
 							class="uk-border-circle"
-							src="https://www.fakepersongenerator.com/Face/female/female20171026204270630.jpg"
+							src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
 							width="200"
 							height="200"
 							alt="Border circle"
 						/>
 					</div>
 				</div>
-				<div class="uk-width-2-3">
-					<form id="user-profile-form" class="uk-grid-small" uk-grid>
-						<label class="uk-width-1-3 uk-margin-auto-vertical" for="username"
-							>Username</label
+				<div class="uk-width-2-3@s">
+					<form id="user-profile-form">
+						<div
+							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
+							uk-grid
 						>
-						<input
-							class="uk-width-2-3 uk-input"
-							id="username"
-							type="text"
-							placeholder="Username"
-						/>
+							<label
+								class="uk-width-1-3@s uk-margin-auto-vertical"
+								for="username"
+							>
+								Username
+							</label>
+							<div class="uk-width-2-3@s">
+								<input
+									class="uk-input"
+									id="username"
+									type="text"
+									placeholder="Username"
+								/>
+							</div>
+						</div>
 
-						<label class="uk-width-1-3 uk-margin-auto-vertical" for="email"
-							>Email</label
+						<div
+							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
+							uk-grid
 						>
-						<input
-							class="uk-width-2-3 uk-input"
-							id="email"
-							type="email"
-							placeholder="Email"
-						/>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical" for="email">
+								Email
+							</label>
+							<div class="uk-width-2-3@s">
+								<input
+									class="uk-input"
+									id="email"
+									type="email"
+									placeholder="Email"
+								/>
+							</div>
+						</div>
 
-						<label class="uk-width-1-3 uk-margin-auto-vertical" for="password"
-							>Password</label
+						<div
+							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
+							uk-grid
 						>
-						<input
-							class="uk-width-2-3 uk-input"
-							id="password"
-							type="password"
-							placeholder="Password"
-						/>
+							<label
+								class="uk-width-1-3@s uk-margin-auto-vertical"
+								for="password"
+							>
+								Password
+							</label>
+							<div class="uk-width-2-3@s">
+								<input
+									class="uk-input"
+									id="password"
+									type="text"
+									placeholder="Password"
+								/>
+							</div>
+						</div>
 
-						<label
-							class="uk-width-1-3 uk-margin-auto-vertical"
-							for="profilePhoto"
-							>Profile Photo Image Url</label
+						<div
+							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
+							uk-grid
 						>
-						<input
-							class="uk-width-2-3 uk-input"
-							id="profilePhoto"
-							type="text"
-							placeholder="Profile Photo Image Url"
-						/>
+							<label
+								class="uk-width-1-3@s uk-margin-auto-vertical"
+								for="profilePhoto"
+							>
+								Profile Photo Image Url
+							</label>
+							<div class="uk-width-2-3@s">
+								<input
+									class="uk-input"
+									id="profilePhoto"
+									type="text"
+									placeholder="Profile Photo Image Url"
+								/>
+							</div>
+						</div>
 					</form>
 					<div
-						class="uk-flex uk-flex-center uk-flex-right@m uk-margin-medium uk-margin-small-bottom"
+						class="uk-flex uk-flex-center uk-flex-right@s uk-margin-medium uk-margin-small-bottom"
 					>
 						<button
 							id="submitBtn"
-							class="uk-button uk-button-danger uk-margin-left"
+							class="uk-button uk-button-default uk-margin-left"
+							disabled
 						>
 							Save
 						</button>
@@ -101,5 +138,6 @@
 		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
+		<script src="js/user-profile.js"></script>
 	</body>
 </html>
