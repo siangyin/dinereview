@@ -25,195 +25,108 @@
 			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
 				Restaurant
 			</h2>
-			<!-- ROW 1: TWO COLUMNS PHOTO + ABOUT START-->
-			<div class="uk-child-width-expand@s" uk-grid>
-				<!-- COLUMN 1 - PHOTO-->
-				<div id="restaurant-photos-container" class="uk-width-1-3@s">
-					<!-- MAIN PHOTOS SLIDER -->
-					<div
-						class="uk-position-relative uk-visible-toggle uk-light"
-						tabindex="-1"
-						uk-slideshow
-					>
-						<ul class="uk-slideshow-items">
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
-									alt=""
-									uk-cover
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80"
-									alt=""
-									uk-cover
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
-									alt=""
-									uk-cover
-								/>
-							</li>
-						</ul>
-
-						<a
-							class="uk-position-center-left uk-position-small uk-hidden-hover"
-							href="#"
-							uk-slidenav-previous
-							uk-slideshow-item="previous"
-						></a>
-						<a
-							class="uk-position-center-right uk-position-small uk-hidden-hover"
-							href="#"
-							uk-slidenav-next
-							uk-slideshow-item="next"
-						></a>
+			<div
+				id="loadingSpinner"
+				class="uk-width-expand uk-text-center"
+				uk-spinner="ratio: 3"
+			></div>
+			<div id="restaurantContent" class="displayNone">
+				<!-- ROW 1: TWO COLUMNS PHOTO + ABOUT START-->
+				<div class="uk-child-width-expand@s" uk-grid>
+					<!-- COLUMN 1 - MAIN PHOTO-->
+					<div id="restaurant-photos-container" class="uk-width-1-3@s">
+						<div>
+							<img
+								id="main-restaurant-photos-img"
+								class="uk-margin-small-top"
+							/>
+						</div>
+						<a class="uk-link-muted" href="#photos-modal" uk-toggle>
+							<div class="uk-inline">
+								<span uk-icon="camera"></span>
+								<span id="viewAllPhotosTxt" class="uk-text-middle">
+									View all(12)</span
+								>
+							</div>
+						</a>
 					</div>
 
-					<!-- THUMBNAILS -->
-					<div
-						class="uk-position-relative uk-visible-toggle uk-light uk-margin-small"
-						tabindex="-1"
-						uk-slider
-					>
-						<ul class="uk-slider-items uk-child-width-1-3">
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-								/>
-							</li>
-							<li>
-								<img
-									src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-									width="400"
-									height="300"
-									alt=""
-									onclick="photoOnClick()"
-								/>
-							</li>
-						</ul>
+					<!-- COLUMN 2 - ABOUT-->
+					<div class="uk-width-2-3@s">
+						<div uk-grid>
+							<div class="uk-width-expand@s">
+								<div id="subheader-top" class="uk-inline"></div>
+								<div id="tags" class="uk-margin-remove"></div>
+							</div>
+							<div class="uk-width-auto@s">
+								<ul class="uk-iconnav">
+									<li>
+										<button id="saveBtn" class="uk-button uk-button-link">
+											<span uk-icon="icon: heart"></span
+											><strong id="saveBtnTxt" class="uk-text-middle">
+												Save</strong
+											>
+										</button>
+									</li>
+									<li>
+										<button id="reviewBtn" class="uk-button uk-button-link">
+											<span uk-icon="icon: commenting"></span
+											><strong id="reviewBtnTxt" class="uk-text-middle">
+												Review</strong
+											>
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
 
-						<a
-							class="uk-position-center-left uk-position-small uk-hidden-hover"
-							href="#"
-							uk-slidenav-previous
-							uk-slider-item="previous"
-						></a>
-						<a
-							class="uk-position-center-right uk-position-small uk-hidden-hover"
-							href="#"
-							uk-slidenav-next
-							uk-slider-item="next"
-						></a>
+						<!-- ABOUT RESTAURANT-->
+						<div
+							id="restaurant-info"
+							class="uk-child-width-expand uk-grid-row-collapse uk-grid-column-small uk-margin-small-top"
+							uk-grid
+						></div>
+
+						<!-- DESC -->
+						<div id="restaurant-description" uk-grid></div>
 					</div>
 				</div>
 
-				<!-- COLUMN 2 - ABOUT-->
-				<div class="uk-width-2-3@s">
-					<div uk-grid>
-						<div class="uk-width-expand@s">
-							<div id="subheader-top" class="uk-inline"></div>
-							<div id="tags" class="uk-margin-remove"></div>
-						</div>
-						<div class="uk-width-auto@s">
-							<ul class="uk-iconnav">
-								<li><span uk-icon="icon: heart"></span> Save</li>
-								<li><span uk-icon="icon: commenting"></span> Review</li>
-							</ul>
-						</div>
+				<!-- ROW 2: REVIEWS + RATINGS -->
+				<div id="reviews-container" class="uk-margin-small">
+					<div>
+						<span id="subheader-bottom" class="uk-text-lead uk-margin-small"
+							>Reviews</span
+						>
 					</div>
-
-					<!-- ABOUT RESTAURANT-->
+					<hr class="uk-margin-small" />
+					<!-- Users Reviews list start -->
 					<div
-						id="restaurant-info"
-						class="uk-child-width-expand uk-grid-row-collapse uk-grid-column-small uk-margin-small-top"
+						id="users-review-list"
+						class="uk-child-width-expand@s"
 						uk-grid
 					></div>
+					<!-- Users Reviews list end -->
+				</div>
+				<!-- ROW 3: REVIEWS + RATINGS END-->
+				<div id="photos-modal" class="uk-modal-container" uk-modal>
+					<div class="uk-modal-dialog">
+						<button
+							class="uk-modal-close-default"
+							type="button"
+							uk-close
+						></button>
+
+						<div class="uk-modal-body" uk-overflow-auto>
+							<div
+								id="photos-modal-body"
+								class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-small uk-padding-small"
+								uk-grid="masonry: true"
+							></div>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<!-- TWO COLUMNS PHOTO + ABOUT END-->
-
-			<!-- ROW 2 : DESCRIPTION -->
-
-			<div id="restaurant-description" uk-grid></div>
-
-			<!-- ROW 3: REVIEWS + RATINGS -->
-			<div id="reviews-container" class="uk-margin-medium">
-				<div>
-					<span id="subheader-bottom" class="uk-text-lead uk-margin-small"
-						>Reviews</span
-					>
-				</div>
-				<hr class="uk-margin-small" />
-				<!-- Users Reviews list start -->
-				<div
-					id="users-review-list"
-					class="uk-child-width-expand@s"
-					uk-grid
-				></div>
-				<!-- Users Reviews list end -->
-			</div>
-			<!-- ROW 3: REVIEWS + RATINGS END-->
 		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>

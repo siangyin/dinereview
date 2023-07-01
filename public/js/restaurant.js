@@ -6,20 +6,41 @@ const pageStatus = {};
 const currentParams = new URLSearchParams(window.location.search);
 // eg: restaurantId=1
 
+// DOM
+const saveBtnTxt = document.getElementById("saveBtnTxt");
+const saveBtn = document.getElementById("saveBtn");
+const reviewBtn = document.getElementById("reviewBtn");
+
 for (const [key, value] of currentParams.entries()) {
 	pageStatus[key] = value;
 	if (key === "restaurantId") {
 		getRestaurant(value);
 	}
 }
-// DOM
+
+const currentUser = sessionStorage.getItem("user")
+	? JSON.parse(sessionStorage.user)
+	: null;
+
+if (currentUser) {
+	checkFavStatus(currentUser.userId, pageStatus.restaurantId);
+	getUserReview(currentUser.userId, pageStatus.restaurantId);
+}
 
 // FUNCTIONS
-function photoOnClick(e) {
-	console.log(e);
+function toggleSave(saved) {
+	if (saved) {
+		saveBtnTxt.innerHTML = " Saved";
+		saveBtnTxt.setAttribute("value", "saved");
+	} else {
+		saveBtnTxt.removeAttribute("value");
+		saveBtnTxt.innerHTML = " Save";
+	}
 }
 
 async function getRestaurant(id) {
+	const loadingSpinner = document.getElementById("loadingSpinner");
+	const restaurantContent = document.getElementById("restaurantContent");
 	let beUrl = `${BE_URL}/api/v1/restaurant/${id}`;
 	try {
 		fetch(beUrl, {
@@ -42,6 +63,110 @@ async function getRestaurant(id) {
 	} catch (error) {
 		console.error(error);
 	}
+	loadingSpinner.classList.add("displayNone");
+	restaurantContent.classList.remove("displayNone");
+}
+
+async function checkFavStatus(userId, restaurantId) {
+	let beUrl = `${BE_URL}/api/v1/restaurant/fav?userId=${userId}&restaurantId=${restaurantId}`;
+	try {
+		fetch(beUrl, {
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				if (res.status == "OK") {
+					pageStatus.isSaved = res.isSaved;
+					toggleSave(res.isSaved);
+				}
+			});
+	} catch (error) {}
+}
+
+async function saveFav(userId, restaurantId) {
+	let beUrl = `${BE_URL}/api/v1/restaurant/fav`;
+	const payload = { userId: userId, restaurantId: restaurantId };
+	try {
+		fetch(beUrl, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(payload),
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				if (res.status == "OK") {
+					toggleSave(true);
+					UIkit.notification({
+						message: `<span>${svgIcon.circleChecked}</span> Favourite restaurant saved…`,
+						status: "success",
+						pos: "bottom-right",
+						timeout: 2000,
+					});
+				} else {
+					UIkit.notification({
+						message: `<span>${svgIcon.triangleExclamation}</span> Request failed…`,
+						status: "danger",
+						pos: "bottom-right",
+						timeout: 2000,
+					});
+				}
+			});
+	} catch (error) {}
+}
+
+async function removeFav(userId, restaurantId) {
+	let beUrl = `${BE_URL}/api/v1/restaurant/fav?userId=${userId}&restaurantId=${restaurantId}`;
+	const saveBtnTxt = document.getElementById("saveBtnTxt");
+	try {
+		fetch(beUrl, {
+			method: "DELETE",
+			headers: {
+				Accept: "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				if (res.status == "OK") {
+					toggleSave(false);
+					UIkit.notification({
+						message: `<span>${svgIcon.circleChecked}</span> Restaurant removed from favourite…`,
+						status: "success",
+						pos: "bottom-right",
+						timeout: 200000,
+					});
+				} else {
+					UIkit.notification({
+						message: `<span>${svgIcon.triangleExclamation}</span> Request failed…`,
+						status: "danger",
+						pos: "bottom-right",
+						timeout: 2000,
+					});
+				}
+			});
+	} catch (error) {}
+}
+
+async function getUserReview(userId, restaurantId) {
+	let beUrl = `${BE_URL}/api/v1/review?userId=${userId}&restaurantId=${restaurantId}`;
+	try {
+		fetch(beUrl, {
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((res) => {
+				if (res.status == "OK") {
+					pageStatus.isReviewed = Boolean(res.data.length);
+				}
+			});
+	} catch (error) {}
 }
 
 function appendTopHeader(avgRating, totalReviews) {
@@ -147,8 +272,7 @@ function appendReviews(arr) {
 	const newDiv = document.createElement("div");
 	const divider = `<hr class="uk-width-3-3 uk-margin-small uk-margin-medium-left" />`;
 	let content = "";
-	let col1 = "";
-	let col2 = "";
+
 	if (Boolean(arr.length)) {
 		arr.forEach((item, i) => {
 			let photoList = "";
@@ -168,7 +292,7 @@ function appendReviews(arr) {
 				// add photos list
 				photoElement = `<div class="uk-position-relative uk-visible-toggle uk-light uk-margin-small"
 				tabindex="-1" uk-slider >
-				<ul class="uk-slider-items">${photoList}</ul>
+				<ul class="uk-slider-items uk-grid-small">${photoList}</ul>
 				<a class="uk-position-center-left uk-position-small uk-hidden-hover"
 				href="#" uk-slidenav-previous uk-slider-item="previous" ></a>
 				<a class="uk-position-center-right uk-position-small uk-hidden-hover"
@@ -217,6 +341,37 @@ function appendReviews(arr) {
 		container.append(...newDiv.childNodes);
 	}
 }
+
+function appendPhotos(db) {
+	const allImg = db;
+	const mainPic = document.getElementById("main-restaurant-photos-img");
+	const modal = document.getElementById("photos-modal-body");
+	document.getElementById(
+		"viewAllPhotosTxt"
+	).innerHTML = `	View all(${allImg.length})`;
+
+	const newDiv = document.createElement("div");
+	let content = "";
+
+	if (Boolean(allImg.length)) {
+		allImg.forEach((i) => {
+			if (i.defaultPhoto) {
+				mainPic.src = i.photoUrl;
+				mainPic.setAttribute("photoId", i.photoId);
+			}
+
+			content += `<div><img
+							class="modal-restaurant-photos-img uk-flex uk-flex-center uk-flex-middle "
+							src=${i.photoUrl}
+							photoId=${i.photoId}
+							alt="main-restaurant-photo"
+						/></div>`;
+		});
+	}
+	newDiv.innerHTML = content;
+	modal.append(...newDiv.childNodes);
+}
+
 function loadRestaurantDetail(db) {
 	document.title = `${db.restaurant.name}`;
 	document.getElementById("pageTitle").innerHTML = `${db.restaurant.name}`;
@@ -234,4 +389,57 @@ function loadRestaurantDetail(db) {
 		"subheader-bottom"
 	).innerHTML = `Reviews (${db.reviews.length})`;
 	appendReviews(db.reviews);
+
+	// append photos
+	appendPhotos(db.photos);
 }
+
+// EVENT LISTENERS
+saveBtn.addEventListener("mouseover", () => {
+	const oriStatus = saveBtnTxt.getAttribute("value");
+	// If has attribute value, mean the user has saved this restaurant
+	// on hover change inner text to unsave
+	if (oriStatus) {
+		saveBtnTxt.innerHTML = " UNSAVE";
+	}
+});
+
+saveBtn.addEventListener("mouseleave", () => {
+	const oriStatus = saveBtnTxt.getAttribute("value");
+	// If has attribute value, mean the user has saved this restaurant
+	// when mouse leave return the text to origin state as saved
+	if (oriStatus) {
+		saveBtnTxt.innerHTML = " SAVED";
+	}
+});
+
+saveBtn.addEventListener("click", () => {
+	if (currentUser && currentUser.userId) {
+		// If has attribute value, mean the user has saved this restaurant
+		const oriStatus = saveBtnTxt.getAttribute("value");
+		if (oriStatus) {
+			// handle unsave
+			removeFav(currentUser.userId, pageStatus.restaurantId);
+		} else {
+			// handle save
+			saveFav(currentUser.userId, pageStatus.restaurantId);
+		}
+	} else {
+		const history = window.location.href;
+		sessionStorage.setItem("history", history);
+		window.location.assign("/login.html");
+	}
+});
+
+reviewBtn.addEventListener("click", () => {
+	if (currentUser && currentUser.userId) {
+		window.location.assign(
+			`/user-review?restaurantId=${pageStatus.restaurantId}.html`
+		);
+	} else {
+		const history = window.location.href;
+		sessionStorage.setItem("history", history);
+		window.location.assign("/login.html");
+	}
+	// console.log(currentUser.userId, pageStatus.restaurantId);
+});

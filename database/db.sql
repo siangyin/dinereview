@@ -61,3 +61,10 @@ CONSTRAINT FK_user_photo FOREIGN KEY (addedBy)
    REFERENCES Users(userId)
 );
 
+CREATE TABLE SavedRestaurants (
+    userId INT(5) NOT NULL,
+    restaurantId INT(5) NOT NULL,
+    addedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_fav_restaurant_user FOREIGN KEY(userId) REFERENCES Users(userId),
+    CONSTRAINT FK_fav_restaurant FOREIGN KEY(restaurantId) REFERENCES Restaurants(restaurantId)
+)

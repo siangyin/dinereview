@@ -3,13 +3,12 @@ const router = express.Router();
 
 const {
 	addReview,
-	getReview,
-	getAllReviews,
+	getReviews,
 	updateReview,
 	deleteReview,
 } = require("../controllers/reviewController");
 
-router.route("/").get(getAllReviews).post(addReview);
-router.route("/:id").get(getReview).patch(updateReview).delete(deleteReview);
+router.route("/").get(getReviews).post(addReview).patch(updateReview);
+router.route("/:id").delete(deleteReview);
 
 module.exports = router;

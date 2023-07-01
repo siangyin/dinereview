@@ -175,7 +175,7 @@ const getRestaurantDetail = async (req, res) => {
 		if (row[0]) {
 			data["restaurant"] = row[0];
 
-			sql = `select * from Photos where restaurantId = ? and reviewId IS NULL and addedBy IS NULL`;
+			sql = `select * from Photos where restaurantId = ?`;
 			[row] = await pool.query(sql, [id]);
 			// get admin uploaded photos
 			data["photos"] = row;
@@ -293,9 +293,117 @@ const getRestaurantsList = async (req, res) => {
 	}
 };
 
+const saveFavourite = async (req, res) => {
+	try {
+		const { userId, restaurantId } = req.body;
+
+		if (userId && restaurantId) {
+			// check if user has saved the restaurant
+			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let [row] = await pool.query(sql, [restaurantId, userId]);
+
+			// if not saved, save the user fav restaurant
+			if (!Boolean(row.length)) {
+				sql = `insert into SavedRestaurants (restaurantId, userId) values (? ,?)`;
+				[row] = await pool.query(sql, [restaurantId, userId]);
+
+				if (row.affectedRows) {
+					return res.status(200).json({
+						status: "OK",
+						msg: "Restaurant has added to favourite list",
+					});
+				}
+			}
+			return res.status(400).json({
+				status: "Invalid request",
+				msg: "Restaurant exist in fav list",
+			});
+		}
+
+		res.status(400).json({
+			status: "Invalid request",
+			msg: "Missing detail",
+		});
+	} catch (error) {
+		res.status(500).json({
+			status: "Something went wrong, please try again",
+			msg: error,
+		});
+	}
+};
+
+const getFavourite = async (req, res) => {
+	try {
+		const { userId, restaurantId } = req.query;
+
+		if (userId && restaurantId) {
+			// check if user has saved the restaurant
+			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let [row] = await pool.query(sql, [restaurantId, userId]);
+
+			return res.status(200).json({
+				status: "OK",
+				isSaved: Boolean(row.length) ? true : false,
+			});
+		} else {
+			res.status(400).json({
+				status: "Invalid request",
+				msg: "Missing detail",
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			status: "Something went wrong, please try again",
+			msg: error,
+		});
+	}
+};
+
+const removeFavourite = async (req, res) => {
+	try {
+		const { userId, restaurantId } = req.query;
+
+		if (userId && restaurantId) {
+			// check if user has saved the restaurant
+			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let [row] = await pool.query(sql, [restaurantId, userId]);
+
+			// if not saved, save the user fav restaurant
+			if (Boolean(row.length)) {
+				sql = `delete from SavedRestaurants where restaurantId = ? and userId = ?`;
+				[row] = await pool.query(sql, [restaurantId, userId]);
+
+				if (row) {
+					return res.status(200).json({
+						status: "OK",
+						msg: "Restaurant has removed from favourite list",
+					});
+				}
+			}
+			return res.status(400).json({
+				status: "Invalid request",
+				msg: "Record not found",
+			});
+		}
+
+		res.status(400).json({
+			status: "Invalid request",
+			msg: "Missing detail/ record not found",
+		});
+	} catch (error) {
+		res.status(500).json({
+			status: "Something went wrong, please try again",
+			msg: error,
+		});
+	}
+};
+
 module.exports = {
 	addRestaurant,
 	updateRestaurant,
 	getRestaurantDetail,
 	getRestaurantsList,
+	saveFavourite,
+	getFavourite,
+	removeFavourite,
 };
