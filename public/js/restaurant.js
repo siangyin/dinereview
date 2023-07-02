@@ -300,6 +300,9 @@ function appendReviews(arr) {
 			</div>`;
 			}
 
+			const dd = new Date(item.createdOn).toDateString().split(" ");
+			let dateDisplay = `${dd[2]}-${dd[1]}-${dd[3]}`;
+
 			const col1 = `
 		<div class="uk-width-1-3@s uk-margin-small-top">
 			<div class="uk-child-width-expand" uk-grid>
@@ -310,7 +313,7 @@ function appendReviews(arr) {
 				<div class="uk-width-expand uk-margin-small">
 					<div class="uk-margin-remove">${item.username}</div>
 					<div class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top" >
-						<span>${item.createdOn}</span>
+						<span>${dateDisplay}</span>
 					</div>
 				</div>
 			</div>

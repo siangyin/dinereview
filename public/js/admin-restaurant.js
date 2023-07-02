@@ -8,10 +8,12 @@ const pageStatus = {
 // {loading: false, action: 'new', id: '1'}
 
 const currentParams = new URLSearchParams(window.location.search);
-// eg: action=new&id=1
+// eg: action=new OR action=edit&id=1 or action=edit&restaurantId=1
 
 for (const [key, value] of currentParams.entries()) {
-	pageStatus[key] = value;
+	if (key === "restaurantId") {
+		pageStatus.id = value;
+	} else pageStatus[key] = value;
 }
 
 const allFields = [
@@ -280,7 +282,7 @@ async function postRestaurant(payload) {
 						message: "<span uk-icon='icon: check'></span>New restaurant saved…",
 						status: "success",
 						pos: "bottom-right",
-						timeout: 1000,
+						timeout: 2000,
 					});
 					// window.location.assign("/index.html");
 				}
