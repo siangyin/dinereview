@@ -2,30 +2,24 @@ const pool = require("../database/connectSql");
 
 const addReview = async (req, res) => {
 	try {
-		const { review, photos, userId } = req.body;
+		const { restaurantId, content, rating, photos, userId, title } = req.body;
+		let reviewId;
 		const msg = [];
 		let sql = "";
 		let sqlVal = [];
-		if (review && review.restaurantId && review.content && review.rating) {
-			const { restaurantId, content, rating } = review;
+		if (restaurantId && content && rating) {
 			sql = `insert into Reviews (restaurantId, userId, title, content, rating) values(?,?,?,?,?)`;
-			sqlVal = [restaurantId, userId, review.title ?? null, content, rating];
+			sqlVal = [restaurantId, userId, title ?? null, content, rating];
 			let [row] = await pool.query(sql, sqlVal);
 
 			if (Boolean(row.insertId)) {
-				review.reviewId = row.insertId;
+				reviewId = row.insertId;
 
 				if (Boolean(photos.length)) {
 					// if has photos, insert photos
 					for (const item of photos) {
 						sql = `insert into Photos (restaurantId, reviewId, photoUrl, defaultPhoto, addedBy) values (?, ? ,?, ? ,?)`;
-						sqlVal = [
-							restaurantId,
-							review.reviewId,
-							item.photoUrl,
-							false,
-							userId,
-						];
+						sqlVal = [restaurantId, reviewId, item.photoUrl, false, userId];
 						[row] = await pool.query(sql, sqlVal);
 
 						!row.insertId &&
@@ -35,13 +29,14 @@ const addReview = async (req, res) => {
 
 				// update review status from draft to active
 				sql = `update Reviews set status = ? where reviewId =?`;
-				sqlVal = ["active", review.reviewId];
+				sqlVal = ["active", reviewId];
 				[row] = await pool.query(sql, sqlVal);
 
 				if (row.affectedRows) {
 					return res.status(200).json({
 						status: "OK",
-						msg: `Review has been added successfully, reviewId ${review.reviewId}`,
+						msg: `Review has been added successfully`,
+						reviewId: reviewId,
 					});
 				}
 			} else {
@@ -94,7 +89,7 @@ const getReviews = async (req, res) => {
 				data = row;
 			}
 		} else if (reviewId) {
-			const sql = `select * from reviews where reviewId = ?`;
+			const sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId where reviews.reviewId =? `;
 			const [row] = await pool.query(sql, [reviewId]);
 
 			if (Boolean(row)) {
@@ -114,12 +109,11 @@ const getReviews = async (req, res) => {
 				status: "OK",
 				data: data,
 			});
-		}
-
-		res.status(400).json({
-			status: "Not found",
-			msg: "No data found",
-		});
+		} else
+			return res.status(200).json({
+				status: "OK",
+				msg: "No data found",
+			});
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",

@@ -163,7 +163,7 @@ async function getUserReview(userId, restaurantId) {
 			.then((res) => res.json())
 			.then((res) => {
 				if (res.status == "OK") {
-					pageStatus.isReviewed = Boolean(res.data.length);
+					pageStatus.isReviewed = Boolean(res.data);
 				}
 			});
 	} catch (error) {}
@@ -432,14 +432,18 @@ saveBtn.addEventListener("click", () => {
 });
 
 reviewBtn.addEventListener("click", () => {
-	if (currentUser && currentUser.userId) {
-		window.location.assign(
-			`/user-review?restaurantId=${pageStatus.restaurantId}.html`
-		);
+	const review = {
+		// save basic detail for adding review in session
+		action: "new",
+		restaurantId: pageStatus.restaurantId,
+		restaurantName: pageStatus.data.restaurant.name ?? undefined,
+	};
+	sessionStorage.setItem("review", JSON.stringify(review));
+	if (sessionStorage.getItem("user")) {
+		window.location.assign("/user-review.html");
 	} else {
-		const history = window.location.href;
+		const history = `/user-review.html`;
 		sessionStorage.setItem("history", history);
 		window.location.assign("/login.html");
 	}
-	// console.log(currentUser.userId, pageStatus.restaurantId);
 });

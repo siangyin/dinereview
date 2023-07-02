@@ -1,27 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- UIKIT CSS & JS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/all.css" />
 	</head>
+
 	<body>
 		<header id="mainHeader"></header>
-		<main id="mainContent"></main>
+		<main id="mainContent" class="uk-container uk-margin">
+			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
+				Restaurant Review
+			</h2>
+
+			<div uk-grid>
+				<div class="uk-width-1-3@m">
+					<div class="uk-card-muted uk-text-center">
+						<div uk-slideshow="min-height: 300; max-height: 600; animation: slide">
+							<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+								<ul class="uk-slideshow-items">
+
+									<li>
+										<img class="reviewPhoto" id="photos1-img" src="images/no-photo.png" />
+										<div class="uk-position-bottom-center uk-panel">
+											<h1>1</h1>
+										</div>
+									</li>
+								</ul>
+
+								<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+									uk-slideshow-item="previous"></a>
+								<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+									uk-slideshow-item="next"></a>
+							</div>
+
+							<ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
+						</div>
+					</div>
+				</div>
+				<div class="uk-width-2-3@m">
+					<form id="form">
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical uk-text-capitalize" for="restaurant">
+								restaurant name
+							</label>
+							<div class="uk-width-2-3@s">
+								<input class="uk-input" id="restaurantName" type="text" value="Restaurant name" readonly />
+							</div>
+						</div>
+
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical uk-text-capitalize" for="rating">
+								rating<sup class="uk-text-danger uk-text-default">*</sup>
+							</label>
+							<div class="uk-width-2-3@s">
+								<input class="uk-input" id="rating" type="number" min="0" max="5" placeholder="Rating" />
+								<!-- <div class="uk-inline uk-margin-small-left uk-text-middle">
+									<span class="starIcons"></span>
+									<span class="uk-divider-vertical uk-margin-small-left"></span>
+									<span class="uk-margin-small-left">3</span>
+								</div> -->
+							</div>
+						</div>
+
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical uk-text-capitalize" for="title">
+								title<sup class="uk-text-danger uk-text-default">*</sup>
+							</label>
+							<div class="uk-width-2-3@s">
+								<input class="uk-input" id="title" type="text" placeholder="Title" />
+							</div>
+						</div>
+
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-bottom uk-text-capitalize" for="content">
+								content<sup class="uk-text-danger uk-text-default">*</sup>
+							</label>
+							<div class="uk-width-2-3@s">
+								<textarea class="uk-textarea" rows="5" id="content" type="text" placeholder="Content"></textarea>
+							</div>
+						</div>
+
+
+
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical uk-text-capitalize" for="photos1">Photo 1</label>
+							<div class="uk-width-2-3@s uk-inline">
+
+								<input class="uk-input uk-padding-small photosInput" type="text"
+									placeholder="Please input image address url" id="photos1" name="photos1" photoIdx="1" />
+
+								<a class="uk-form-icon uk-form-icon-flip addPhotoBtn" uk-icon="plus-circle"
+									uk-tooltip="title: additional photo; pos: top-center" onclick="appendPhotosInput()"></a>
+
+							</div>
+						</div>
+
+					</form>
+					<div class="uk-flex uk-flex-center uk-flex-right@s uk-margin-medium uk-margin-small-bottom">
+						<button id="submitBtn" class="uk-button uk-button-default uk-margin-left" disabled>
+							Save
+						</button>
+					</div>
+
+
+				</div>
+			</div>
+		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
+		<script src="js/user-review.js"></script>
 	</body>
+
 </html>

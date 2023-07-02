@@ -1,13 +1,9 @@
-/* header,
-main,
-aside,
-section,
-footer {
-	border: 0.2px solid whitesmoke;
-} */
-
 main {
-	min-height: calc(100vh - 300px);
+	min-height: calc(100vh - 230px);
+}
+
+footer {
+	margin-top: 30px;
 }
 
 .starIcons > svg {
@@ -30,6 +26,17 @@ main {
 	width: auto;
 }
 
+.reviewPhoto {
+	max-height: 100%;
+	max-width: 100%;
+	object-fit: contain;
+}
+
+#restaurant-photos-container > img,
+.modal-restaurant-photos-img {
+	width: 100%;
+}
+
 .uk-notification-message {
 	background-color: white;
 }
@@ -40,4 +47,13 @@ main {
 
 .uk-notification-message-danger {
 	border: 1.5px solid lightcoral;
+}
+
+/* modal restyle */
+.uk-modal-footer {
+	border-top: none;
+}
+
+button.uk-button.uk-button-primary {
+	background-color: #f0506e !important;
 }

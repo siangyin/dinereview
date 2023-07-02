@@ -345,6 +345,15 @@ const getFavourite = async (req, res) => {
 				status: "OK",
 				isSaved: Boolean(row.length) ? true : false,
 			});
+		} else if (userId) {
+			// get user fav list with restaurant detail
+			let sql = `select * from SavedRestaurants LEFT JOIN Restaurants ON SavedRestaurants.restaurantId=Restaurants.restaurantId  where SavedRestaurants.userId= ${userId}`;
+			let [row] = await pool.query(sql);
+
+			return res.status(200).json({
+				status: "OK",
+				data: row,
+			});
 		} else {
 			res.status(400).json({
 				status: "Invalid request",
