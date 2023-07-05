@@ -322,8 +322,8 @@ function appendReviews(arr) {
 			const col2 = `
 			<div class="uk-width-2-3@s uk-margin-small">
 				<div class="uk-inline">
-					<span class="uk-text-middle uk-text-emphasis">4.5</span>
-					${getStarRating(item.rating)}
+					<span class="uk-text-middle uk-text-emphasis">${item.rating}</span>
+					${getStarRating(+item.rating)}
 					<span class="uk-divider-vertical uk-margin-small-left"></span>
 					<strong class="uk-margin-small-left uk-text-middle">${item.title ?? ""}</strong>
 				</div>

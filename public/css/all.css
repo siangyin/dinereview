@@ -57,3 +57,7 @@ footer {
 button.uk-button.uk-button-primary {
 	background-color: #f0506e !important;
 }
+
+/* .uk-navbar-container:not(.uk-navbar-transparent) {
+	background-color: #f0506e;
+} */
