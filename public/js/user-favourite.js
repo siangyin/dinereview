@@ -118,7 +118,7 @@ async function getFavList(userId) {
 					if (res.data && res.data.length > 0) {
 						loadData(res.data);
 					} else {
-						noreview.innerHTML = "No review";
+						noreview.innerHTML = "No data";
 					}
 				} else {
 					UIkit.notification({
