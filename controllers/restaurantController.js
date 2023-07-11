@@ -347,12 +347,24 @@ const getFavourite = async (req, res) => {
 			});
 		} else if (userId) {
 			// get user fav list with restaurant detail
-			let sql = `select * from SavedRestaurants LEFT JOIN Restaurants ON SavedRestaurants.restaurantId=Restaurants.restaurantId  where SavedRestaurants.userId= ${userId}`;
+			let sql = `select SavedRestaurants.restaurantId, Restaurants.name, Restaurants.type, Restaurants.cuisine, SavedRestaurants.addedOn 
+			from SavedRestaurants LEFT JOIN Restaurants ON SavedRestaurants.restaurantId = Restaurants.restaurantId  where SavedRestaurants.userId= ${userId}`;
 			let [row] = await pool.query(sql);
+			const data = [];
+			if (Boolean(row.length)) {
+				for (let item of row) {
+					const restaurant = { ...item };
+					sql = `select AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${item.restaurantId}`;
+					const [review] = await pool.query(sql);
+					restaurant.totalReviews = Number.parseInt(review[0].counts);
+					restaurant.avgRating = +parseFloat(review[0].avg).toFixed(1) ?? null;
+					data.push(restaurant);
+				}
+			}
 
 			return res.status(200).json({
 				status: "OK",
-				data: row,
+				data: data,
 			});
 		} else {
 			res.status(400).json({
