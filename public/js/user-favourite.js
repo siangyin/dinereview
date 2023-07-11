@@ -6,7 +6,7 @@ const currentUser = sessionStorage.getItem("user")
 	: null;
 
 if (currentUser) {
-	fetchData(currentUser.userId);
+	getFavList(currentUser.userId);
 } else {
 	const history = window.location.href;
 	sessionStorage.setItem("history", history);
@@ -18,8 +18,8 @@ const noreview = document.getElementById("noreview");
 const tableBody = document.getElementById("table-body");
 
 // FUNCTIONS
-async function deleteReview(id) {
-	const beUrl = `${BE_URL}/api/v1/review/${id}`;
+async function deleteFav(id) {
+	const beUrl = `${BE_URL}/api/v1/restaurant/fav?userId=${currentUser.userId}&restaurantId=${id}`;
 	try {
 		fetch(beUrl, {
 			method: "DELETE",
@@ -51,15 +51,15 @@ async function deleteReview(id) {
 	}
 }
 
-function handleDelete(id) {
-	UIkit.modal.confirm("Confirm to delete review?").then(
-		() => deleteReview(id),
+function handleUnsave(id) {
+	UIkit.modal.confirm("Confirm to remove restaurant from favourite?").then(
+		() => deleteFav(id),
 		() => {}
 	);
 }
 
 function appendData(db) {
-	const dd = new Date(db.createdOn).toDateString().split(" ");
+	const dd = new Date(db.addedOn).toDateString().split(" ");
 	const dateDisplay = `${dd[2]}-${dd[1]}-${dd[3]}`;
 
 	const mainTr = document.createElement("tr");
@@ -70,15 +70,15 @@ function appendData(db) {
 	mainTr.appendChild(td);
 
 	td = document.createElement("td");
-	td.innerHTML = `${db.title}`;
+	td.innerHTML = `${db.type}, ${db.cuisine}`;
 	mainTr.appendChild(td);
 
 	td = document.createElement("td");
 	td.classList.add("uk-text-nowrap");
 	td.classList.add("uk-table-expand");
 	td.innerHTML = `<div class="uk-inline">
-        <span class="uk-text-middle">${db.rating}</span>
-					${getStarRating(+db.rating)}
+        <span class="uk-text-middle">${db.avgRating ?? 0}</span>
+					${getStarRating(+db.avgRating)}
       </div>`;
 	mainTr.appendChild(td);
 
@@ -91,8 +91,8 @@ function appendData(db) {
 	td = document.createElement("td");
 	td.classList.add("uk-text-nowrap");
 	td.innerHTML = `<div class="uk-inline">
-  <a href="/user-review.html?reviewId=${db.reviewId}&action=edit" class="uk-margin-small-right" uk-icon="pencil"></a>
-  <a onclick="handleDelete(${db.reviewId})" class="uk-margin-small-right" uk-icon="trash"></a>
+  <a href="/restaurant.html?restaurantId=${db.restaurantId}" class="uk-margin-small-right" uk-icon="eye"></a>
+  <a onclick="handleUnsave(${db.restaurantId})" class="uk-margin-small-right" uk-icon="trash"></a>
       </div>`;
 	mainTr.appendChild(td);
 
@@ -103,8 +103,8 @@ function loadData(list) {
 	list.map((item) => appendData(item));
 }
 
-async function fetchData(userId) {
-	const beUrl = `${BE_URL}/api/v1/review?userId=${userId}`;
+async function getFavList(userId) {
+	const beUrl = `${BE_URL}/api/v1/restaurant/fav?userId=${userId}`;
 	try {
 		fetch(beUrl, {
 			method: "GET",
