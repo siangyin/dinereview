@@ -32,7 +32,6 @@ if (
 // get userId if exist eg: '/user-profile.html?userId=5'
 for (const [key, value] of currentParams.entries()) {
 	pageStatus[key] = value;
-	console.log(key, value);
 }
 
 // show search userId for admin else default current user
@@ -138,7 +137,6 @@ function loadUserProfile(db) {
 
 // handle submit button
 submitBtn.addEventListener("click", () => {
-	console.log("click save");
 	const updatingUserId = pageStatus.userId ?? currentUser.userId;
 	const payload = {};
 	userDetails.forEach((i) => {

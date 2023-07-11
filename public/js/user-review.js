@@ -9,7 +9,6 @@ const currentParams = new URLSearchParams(window.location.search);
 for (const [key, value] of currentParams.entries()) {
 	pageStatus[key] = value;
 	if (key === "reviewId") {
-		pageStatus.action = "view";
 		getReview(pageStatus.reviewId);
 	}
 }
@@ -41,9 +40,7 @@ const currentUser = sessionStorage.getItem("user")
 // example currentUser obj: { userId: 1, username: "Michael J Mark", email: "aletha_hauc4@gmail.com", role: "user" }
 // example pageStatus obj: {action: "new",restaurantId: "1",restaurantName: "Cut by Wolfgang Puck"}
 
-if (currentUser) {
-	//
-} else {
+if (!currentUser) {
 	const history = window.location.href;
 	sessionStorage.setItem("history", history);
 	window.location.assign("/login.html");
@@ -124,7 +121,7 @@ function updateFormFields(propId, newval) {
 	if (pageStatus.editable) {
 		btnDisabled = Boolean(hasChanged.length);
 	}
-	console.log(btnDisabled);
+
 	toggleSubmitBtn("submitBtn", btnDisabled);
 
 	Object.assign(formFields, updated);
@@ -151,15 +148,16 @@ function showExistingReview(db) {
 	const photos1 = formFields.findIndex((item) => item.id === "photos1");
 	if (db.photos.length > 0) {
 		// update first photo img src and input value
-		formFields[photos1].value = db.photos[0].photoUrl;
-		formFields[photos1].photoId = db.photos[0].photoId;
-
 		const photos1Input = document.getElementById("photos1");
 		photos1Input.value = db.photos[0].photoUrl;
 		photos1Input.setAttribute("photoId", db.photos[0].photoId);
 		if (!pageStatus.editable) {
 			photos1Input.readOnly = true;
 		}
+
+		formFields[photos1].value = db.photos[0].photoUrl;
+		formFields[photos1].photoId = db.photos[0].photoId;
+
 		// update photo slider
 		const imgId = `photos1-img`;
 		const updateImg = document.getElementById(imgId);
@@ -185,7 +183,6 @@ function showExistingReview(db) {
 	}
 }
 
-console.log(pageStatus);
 async function saveReview(payload, action) {
 	const method = action == "edit" ? "PATCH" : "POST";
 	const msg = {
@@ -240,11 +237,14 @@ async function getReview(reviewId) {
 			.then((res) => {
 				if (res.status == "OK") {
 					pageStatus.data = res.data[0];
-					pageStatus.editable =
+					const editable =
 						res.data[0].userId == currentUser.userId ||
 						currentUser.role == "admin"
 							? true
 							: false;
+					pageStatus.editable = editable;
+					pageStatus.action = editable ? "edit" : "view";
+
 					showExistingReview(res.data[0]);
 				} else {
 					UIkit.notification({
@@ -265,7 +265,6 @@ mainForm.addEventListener("change", (e) => {
 	const id = e.target.id;
 	const value = e.target.value;
 
-	console.log(e.target);
 	if (e.target.classList.contains("photosInput")) {
 		// update photo slider
 		const imgId = `${id}-img`;

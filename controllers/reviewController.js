@@ -67,22 +67,23 @@ const getReviews = async (req, res) => {
 	try {
 		const { userId, restaurantId, reviewId } = req.query;
 		let data;
+		let sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId`;
 		if (userId && restaurantId) {
-			const sql = `select * from reviews where restaurantId = ? and userId = ?`;
+			sql = sql + ` where reviews.restaurantId = ? and reviews.userId = ?`;
 			const [row] = await pool.query(sql, [restaurantId, userId]);
 
 			if (Boolean(row)) {
 				data = row;
 			}
 		} else if (userId) {
-			const sql = `select * from reviews where userId = ?`;
+			sql = sql + ` where reviews.userId = ?`;
 			const [row] = await pool.query(sql, [userId]);
 
 			if (Boolean(row)) {
 				data = row;
 			}
 		} else if (restaurantId) {
-			const sql = `select * from reviews where restaurantId = ?`;
+			sql = sql + ` where reviews.restaurantId = ?`;
 			const [row] = await pool.query(sql, [restaurantId]);
 
 			if (Boolean(row)) {
@@ -177,6 +178,7 @@ const updateReview = async (req, res) => {
 			return res.status(200).json({
 				status: "OK",
 				msg: msg,
+				reviewId: reviewId,
 			});
 		}
 		res.status(400).json({
@@ -194,14 +196,23 @@ const updateReview = async (req, res) => {
 // DELETE A REVIEW by reviewId (user ownself, or admin)
 const deleteReview = async (req, res) => {
 	try {
+		const { id } = req.params;
+		let sql = `delete from photos where reviewId = ?`;
+		let [row] = await pool.query(sql, [id]);
+		let msg;
+		if (row.affectedRows) {
+			msg = "Photo";
+		}
+
+		sql = `delete from reviews where reviewId = ?`;
+		[row] = await pool.query(sql, [id]);
+		if (row.affectedRows) {
+			msg = `Review ${msg && "&" + msg} deleted`;
+		}
+
 		res.status(200).json({
 			status: "OK",
-			data: data,
-		});
-
-		res.status(404).json({
-			status: "Not found",
-			msg: "No data found",
+			msg: "Review deleted",
 		});
 	} catch (error) {
 		res.status(500).json({
