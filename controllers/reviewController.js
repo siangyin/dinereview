@@ -90,8 +90,15 @@ const getReviews = async (req, res) => {
 				data = row;
 			}
 		} else if (reviewId) {
-			const sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId where reviews.reviewId =? `;
+			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId where reviews.reviewId =? `;
 			const [row] = await pool.query(sql, [reviewId]);
+
+			if (Boolean(row)) {
+				data = row;
+			}
+		} else {
+			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId`;
+			const [row] = await pool.query(sql);
 
 			if (Boolean(row)) {
 				data = row;
