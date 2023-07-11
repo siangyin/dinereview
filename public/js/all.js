@@ -104,13 +104,13 @@ const mainContent = document.getElementById("mainContent");
 
 window.addEventListener("DOMContentLoaded", () => {
 	appendDomItem(mainHeader, navbar);
-	appendDomItem(mainHeader, breadCrumb);
+	// appendDomItem(mainHeader, breadCrumb);
 	appendDomItem(mainFooter, footer);
 });
 
 const navbar = `
     <nav class="uk-navbar-container">
-		<div class="uk-container">
+		<div class="uk-container uk-background-default">
 			<div uk-navbar>
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
@@ -119,14 +119,12 @@ const navbar = `
 							<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
 							<div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li class="uk-active"><a href="/admin-restaurant.html?action=new">New Restaurant</a></li>
-                                    <li><a href="/">Popular Restaurants</a></li>
-                                    <li class="uk-nav-header">Cuisine</li>
-                                    <li><a href="/">Asian</a></li>
-                                    <li><a href="/">Chinese</a></li>
-                                    <li><a href="/">Cafe</a></li>
+                                    <li class="uk-nav-header">Admin</li>
+                                    <li><a href="/admin-userlist.html ">User List</a></li>
+                                    <li><a href="/admin-restaurantlist.html">Restarant List</a></li>
+                                    <li><a href="/admin-reviewlist.html">Review List</a></li>
                                     <li class="uk-nav-divider"></li>
-                                    <li><a href="/">Special Offers</a></li>
+                                    <li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
                                 </ul>
 							</div>
 						</li>
