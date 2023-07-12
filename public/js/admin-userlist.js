@@ -16,50 +16,10 @@ if (currentUser) {
 }
 
 // DOM
-const noreview = document.getElementById("noreview");
+const nodata = document.getElementById("nodata");
 const tableBody = document.getElementById("table-body");
 
 // FUNCTIONS
-async function deleteUser(id) {
-	const beUrl = `${BE_URL}/api/v1/review/${id}`;
-	try {
-		fetch(beUrl, {
-			method: "DELETE",
-			headers: {
-				Accept: "application/json",
-			},
-		})
-			.then((res) => res.json())
-			.then((res) => {
-				if (res.status == "OK") {
-					UIkit.notification({
-						message: `<span uk-icon='icon: check'></span>${res.msg}`,
-						status: "success",
-						pos: "bottom-right",
-						timeout: 2000,
-					});
-					setTimeout(() => location.reload(), 2000);
-				} else {
-					UIkit.notification({
-						message: `<span>${svgIcon.triangleExclamation}</span> Request failed…`,
-						status: "danger",
-						pos: "bottom-right",
-						timeout: 2000,
-					});
-				}
-			});
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-function handleDelete(id) {
-	UIkit.modal.confirm("Confirm to delete review?").then(
-		() => deleteUser(id),
-		() => {}
-	);
-}
-
 function appendData(db) {
 	const dd = new Date(db.createdOn).toDateString().split(" ");
 	const dateDisplay = `${dd[2]}-${dd[1]}-${dd[3]}`;
@@ -93,8 +53,8 @@ function appendData(db) {
   <a href="/user-profile.html?action=view&userId=${db.userId}" class="uk-margin-small-right" uk-icon="eye"></a>
     <a href="/user-profile.html?action=edit&userId=${db.userId}" class="uk-margin-small-right" uk-icon="pencil"></a>
       </div>`;
-	mainTr.appendChild(td);
 
+	mainTr.appendChild(td);
 	tableBody.appendChild(mainTr);
 }
 
@@ -117,7 +77,7 @@ async function fetchData() {
 					if (res.data && res.data.length > 0) {
 						loadData(res.data);
 					} else {
-						noreview.innerHTML = "No data";
+						nodata.innerHTML = "No data";
 					}
 				} else {
 					UIkit.notification({

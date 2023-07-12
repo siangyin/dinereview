@@ -97,7 +97,7 @@ const getReviews = async (req, res) => {
 				data = row;
 			}
 		} else {
-			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId`;
+			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name, reviews.userId, users.username, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId left join users on reviews.userId = users.userId`;
 			const [row] = await pool.query(sql);
 
 			if (Boolean(row)) {

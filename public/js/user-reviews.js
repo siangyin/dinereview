@@ -14,7 +14,7 @@ if (currentUser) {
 }
 
 // DOM
-const noreview = document.getElementById("noreview");
+const nodata = document.getElementById("nodata");
 const tableBody = document.getElementById("table-body");
 
 // FUNCTIONS
@@ -118,7 +118,7 @@ async function fetchData(userId) {
 					if (res.data && res.data.length > 0) {
 						loadData(res.data);
 					} else {
-						noreview.innerHTML = "No review";
+						nodata.innerHTML = "No review";
 					}
 				} else {
 					UIkit.notification({
