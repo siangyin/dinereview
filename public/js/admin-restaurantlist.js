@@ -20,7 +20,7 @@ const nodata = document.getElementById("nodata");
 const tableBody = document.getElementById("table-body");
 
 // FUNCTIONS
-async function deleteReview(id) {
+async function deleteRestaurant(id) {
 	const beUrl = `${BE_URL}/api/v1/restaurant/${id}`;
 	try {
 		fetch(beUrl, {
@@ -55,7 +55,7 @@ async function deleteReview(id) {
 
 function handleDelete(id) {
 	UIkit.modal.confirm("Confirm to delete restaurant?").then(
-		() => deleteReview(id),
+		() => deleteRestaurant(id),
 		() => {}
 	);
 }

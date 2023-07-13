@@ -47,6 +47,7 @@ const userProfileForm = document.getElementById("user-profile-form");
 const inputs = document.querySelectorAll("input");
 const submitBtn = document.getElementById("submitBtn");
 const profilePhotoImg = document.getElementById("profilePhotoImg");
+const roleInput = document.getElementById("role");
 
 // FUNCTIONS
 
@@ -118,20 +119,39 @@ function loadUserProfile(db) {
 	];
 	submitBtn.disabled = true;
 
+	if (currentUser.role === "admin") {
+		userDetails.push({ id: "role", hasChanged: false });
+		const hiddenRow = document.getElementById("hiddenRow");
+		hiddenRow.classList.remove("displayNone");
+	}
+
+	// set readOnly if current search action is view else default will be editable
+	// eg '/user-profile.html?action=view&userId=5'
+	const isDisabled = pageStatus.action === "view";
+
 	// loop thru res.data to update dom and set origin value in form fields
 	for (const obj of userDetails) {
 		obj.value = db[obj.id];
-		document.getElementById([obj.id]).value = db[obj.id];
-
-		// set readOnly if current search action is view else default will be editable
-		// eg '/user-profile.html?action=view&userId=5'
-		if (pageStatus.action === "view") {
-			document.getElementById([obj.id]).readOnly = true;
-		}
+		const inputEl = document.getElementById([obj.id]);
+		inputEl.value = db[obj.id];
+		inputEl.disabled = isDisabled;
 	}
 
 	profilePhotoImg.src = db.profilePhoto ?? noPhotoUrl;
+	isDisabled && submitBtn.classList.add("displayNone");
 }
+
+// handle origin and new values update to hasChanged status
+const formFieldUpdated = (inputId, newValue) => {
+	const i = userDetails.findIndex((field) => field.id == inputId);
+	const currVal = userDetails[i].value;
+	userDetails[i].newValue = currVal === newValue ? undefined : newValue;
+	userDetails[i].hasChanged = currVal === newValue ? false : true;
+
+	if (inputId == "profilePhoto") {
+		profilePhotoImg.src = newValue ?? currVal ?? noPhotoUrl;
+	}
+};
 
 // EVENT LISTENER
 
@@ -152,18 +172,15 @@ inputs.forEach((input) => {
 	input.addEventListener("change", (e) => {
 		const newValue = e.target.value;
 		const inputId = e.target.id;
-		const i = userDetails.findIndex((field) => field.id == inputId);
-		const currVal = userDetails[i].value;
-
-		userDetails[i].newValue = currVal === newValue ? undefined : newValue;
-		userDetails[i].hasChanged = currVal === newValue ? false : true;
-
-		if (inputId == "profilePhoto") {
-			profilePhotoImg.src = newValue ?? currVal ?? noPhotoUrl;
-		}
+		formFieldUpdated(inputId, newValue);
 	});
 });
 
+roleInput.addEventListener("change", (e) => {
+	const newValue = e.target.value;
+	const inputId = e.target.id;
+	formFieldUpdated(inputId, newValue);
+});
 // handle disabled submit button based on value changes
 userProfileForm.addEventListener("change", () => {
 	const fieldsChanges = userDetails.map((i) => i.hasChanged ?? false);

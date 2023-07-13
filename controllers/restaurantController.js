@@ -293,6 +293,62 @@ const getRestaurantsList = async (req, res) => {
 	}
 };
 
+const deleteRestaurant = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const success = [];
+		const failed = [];
+		let msg;
+		let sql = `delete from SavedRestaurants where restaurantId = ?`;
+		let [row] = await pool.query(sql, [id]);
+
+		row ? success.push("Favourite") : failed.push("Favourite");
+
+		sql = `delete from Photos where restaurantId = ?`;
+		[row] = await pool.query(sql, [id]);
+
+		row ? success.push("Photos") : failed.push("Photos");
+
+		sql = `delete from Reviews where restaurantId = ?`;
+		[row] = await pool.query(sql, [id]);
+
+		row ? success.push("Reviews") : failed.push("Reviews");
+
+		sql = `delete from Restaurants where restaurantId = ?`;
+		[row] = await pool.query(sql, [id]);
+
+		if (row) {
+			msg = `Deleted Restaurant with details ${success.toString()}`;
+			if (failed.length > 0) {
+				msg += "except" + failed.toString();
+			}
+
+			return res.status(200).json({
+				status: "OK",
+				msg: msg,
+			});
+		} else {
+			msg = `Unable to delete Restaurant with details ${
+				failed.length && "except" + failed.toString()
+			}${success.length && ", has deleted data in " + success.toString()} `;
+
+			console.log({
+				status: "OK",
+				msg: msg,
+			});
+			return res.status(400).json({
+				status: "Request failed",
+				msg: msg,
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			status: "Server error",
+			msg: error,
+		});
+	}
+};
+
 const saveFavourite = async (req, res) => {
 	try {
 		const { userId, restaurantId } = req.body;
@@ -424,6 +480,7 @@ module.exports = {
 	updateRestaurant,
 	getRestaurantDetail,
 	getRestaurantsList,
+	deleteRestaurant,
 	saveFavourite,
 	getFavourite,
 	removeFavourite,

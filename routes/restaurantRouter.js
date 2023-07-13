@@ -6,6 +6,7 @@ const {
 	updateRestaurant,
 	getRestaurantDetail,
 	getRestaurantsList,
+	deleteRestaurant,
 	saveFavourite,
 	getFavourite,
 	removeFavourite,
@@ -17,6 +18,10 @@ router
 	.post(saveFavourite)
 	.delete(removeFavourite);
 router.route("/").post(addRestaurant).get(getRestaurantsList);
-router.route("/:id").get(getRestaurantDetail).patch(updateRestaurant);
+router
+	.route("/:id")
+	.get(getRestaurantDetail)
+	.patch(updateRestaurant)
+	.delete(deleteRestaurant);
 
 module.exports = router;

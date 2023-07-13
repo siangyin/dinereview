@@ -131,6 +131,14 @@ function showExistingReview(db) {
 	document.getElementById("restaurantName").value = db.name;
 	pageStatus.restaurantId = db.restaurantId;
 
+	if (currentUser.role === "admin") {
+		const hiddenRow = document.getElementById("hiddenRow");
+		hiddenRow.classList.remove("displayNone");
+		const usernameInput = document.getElementById("username");
+		usernameInput.value = db.username;
+		usernameInput.readOnly = true;
+	}
+
 	let tempArr = ["title", "content", "rating"];
 	formFields.forEach((item) => {
 		if (db[item.id] && tempArr.includes(item.id)) {
