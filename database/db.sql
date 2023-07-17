@@ -69,8 +69,6 @@ CREATE TABLE SavedRestaurants (
     CONSTRAINT FK_fav_restaurant FOREIGN KEY(restaurantId) REFERENCES Restaurants(restaurantId)
 );
 
--- insert users
-
 INSERT INTO `Users` (`userId`, `username`, `email`, `password`, `role`, `createdOn`, `profilePhoto`) VALUES
 (1, 'Michael J Mark', 'aletha_hauc4@gmail.com', 'Hu8aph1ohth', 'user', '2023-06-03 07:10:03', 'https://www.fakepersongenerator.com/Face/male/male1085111482391.jpg'),
 (2, 'yippee', 'yippee@gmail.com', 'yippee', 'admin', '2023-06-03 07:10:42', NULL),
@@ -99,9 +97,6 @@ INSERT INTO `Users` (`userId`, `username`, `email`, `password`, `role`, `created
 (25, 'yippee123', 'yippee123@gmail.com', 'yippee', 'user', '2023-06-27 14:00:31', NULL);
 
 
--- insert restaurants
-
-
 INSERT INTO `Restaurants` (`restaurantId`, `name`, `description`, `website`, `contact`, `add1`, `add2`, `add3`, `city`, `country`, `postalCode`, `area`, `openHrs`, `type`, `cuisine`, `status`) VALUES
 (1, 'Cut by Wolfgang Puck', 'CUT by Wolfgang Puck’s first Asian outpost can be found at Marina Bay Sands Singapore. The critically acclaimed steak restaurant features a comfortably modern dining room designed by esteemed hospitality designer Tony Chi. The menu presents a contemporary twist on the classic steak restaurant, featuring the world’s finest meats, poultry, and seafood, all complemented by house-made sauces and delectable sides. An extensive international wine list offers more than 500 outstanding selections. CUT is proud to have received a One Star rating in Singapore’s first edition of the Michelin Guide, in 2016.', 'https://wolfgangpuck.com/dining/cut-singapore/', '+65 6688 8517', '2 Bayfront Ave', '#B1 - 71', 'Singapore 018972', NULL, 'Singapore', '018972', 'Marina Bay', 'Daily 09:00 AM - 10:00 PM', 'Bar/ Bistro, Cafés, Casual', 'Asian', 'active'),
 (2, 'DB Bistro & Oyster Bar', 'DB Bistro & Oyster Bar offers an exciting mix of traditional French bistro cooking with contemporary American flavors, and a world-renown collection of signature burgers. Chef Daniel Boulud reinterprets the classic Parisian bistro while sharing the energy and style of his acclaimed db Bistro Moderne in Midtown Manhattan. In addition to the slew of Parisan bistro favourites and New York-style burgers that have found pride of place on the menu, the revamped menu brings with it plenty from the sea. Expect to find freshly shucked French and American oysters alongside Maine', 'https://www.dbbistro.com/singapore/', '+65 9456 8097', '2 Bayfront Avenue', 'B1-48, Galleria Level The Shoppes at Marina Bay Sands', 'Singapore 018958', NULL, 'Singapore', '018958', 'Marina Bay', 'Daily 12:00 PM - 4:00 PM, 5:30 PM - 9:30 PM', 'Bar/ Bistro, Fine Dining', 'Western', 'active'),
@@ -117,7 +112,6 @@ INSERT INTO `Restaurants` (`restaurantId`, `name`, `description`, `website`, `co
 (14, 'Man Fu Yuan', 'Man Fu Yuan at InterContinental Singapore is an Award-winning and Micheline recommended Chinese fine-dining restaurant, serving authentic Cantonese dishes such as roasts, smoked duck, peking duck and Lobster dan dan noodles.', 'http://singapore.intercontinental.com/dine-drink/man-fu-yuan', '+65 6825 1008', '80 Middle Road Level 2', 'InterContinental Singapore', NULL, NULL, 'Singapore', '188966', 'Central Area/City Area', 'Daily 09:00 AM - 10:00 PM', 'Restaurant', 'Chinese, Asian', 'active'),
 (15, 'Bar-Roque Grill', 'The Alsace-born chef takes diners on a culinary journey to his homeland with authentic regional specialties such as choucroute garnie and tarte flambée aux escargots. International dishes are also popular, like Malaysian rotisserie free-range chicken and a selection of beefsteaks dry aged in-house and chargrilled to perfection. Service is attentive and helpful. Start or end the night with a drink on the terrace or at the bar.', 'http://www.stefanandnico.com/', '+65 6444 9672', '165 Tanjong Pagar Road', '#01-00 Amara Singapore', NULL, NULL, 'Singapore', '088539', 'Central Area/City Area', 'Daily  5:30 PM - 10:30 PM', 'Steakhouse, Bar/ Bistro', 'French, Vegetarian Friendly', 'active');
 
--- insert reviews
 
 INSERT INTO `Reviews` (`reviewId`, `restaurantId`, `userId`, `title`, `content`, `rating`, `status`, `createdOn`) VALUES
 (1, 1, 4, 'Superb Experience!', 'Food was fantastic, it’s really worth the price that we have paid for. Only those who know how to appreciate these fine food should come and have a taste. You will never regret it.', 5.0, 'active', '2023-06-25 17:37:13'),
@@ -138,7 +132,7 @@ INSERT INTO `Reviews` (`reviewId`, `restaurantId`, `userId`, `title`, `content`,
 (16, 14, 1, 'Delicious Food and Five Star Service', 'This restaurant is a gem! The food was so good and the service was truly excellent! The wok-fried beef cube with Sichuan double pepper sauce was so sumptuous ... Thank you Chef Shawn, Rene, Joanne, Chin Chin & Siew Leong for making my birthday dinner such a special and memorable one! Will definitely recommend Man Fu Yuan to my friends and relatives !', 5.0, 'active', '2023-07-02 14:38:46'),
 (17, 9, 4, 'Vibes and friendliness amazing.', 'Love their story. Laugh, Dream, Clap, Share, Forgive, Celebrate & Love. Food was the best, especially as we were craving vegetables and wholesome food. Loved the Protein Shakes and the Prosecco Spritz\'s. Franck and his team were Awesome- attentive and helpful and happy to take photos too !!', 4.0, 'active', '2023-07-02 17:26:01');
 
--- Fav restaurants
+
 
 INSERT INTO `SavedRestaurants` (`userId`, `restaurantId`, `addedOn`) VALUES
 (1, 3, '2023-07-01 19:32:39'),
@@ -149,7 +143,7 @@ INSERT INTO `SavedRestaurants` (`userId`, `restaurantId`, `addedOn`) VALUES
 (6, 2, '2023-07-04 11:10:42'),
 (4, 1, '2023-07-11 17:05:48');
 
--- insert photos
+
 
 INSERT INTO `Photos` (`photoId`, `restaurantId`, `reviewId`, `photoUrl`, `defaultPhoto`, `createdOn`, `addedBy`) VALUES
 (1, 2, NULL, 'https://pbs.twimg.com/profile_images/966772532027297795/y3YzdTf9_400x400.jpg', 1, '2023-06-24 08:56:09', NULL),
