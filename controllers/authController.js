@@ -2,26 +2,27 @@ const pool = require("../database/connectSql");
 const jwt = require("jsonwebtoken");
 
 const createJWT = (payload) =>
-	(token = jwt.sign(payload, process.env.JWT_SECRET, {
+	jwt.sign(payload, process.env.JWT_SECRET, {
 		expiresIn: "30d",
-	}));
+	});
 
 const register = async (req, res) => {
 	try {
 		const { email, password, username } = req.body;
 
 		// find users with same email
-		const [users] = await pool.query("select * from users where email = ?", [
+		const [users] = await pool.query("SELECT * FROM users WHERE email = ?", [
 			email,
 		]);
 
 		if (users.length) {
-			return res
-				.status(400)
-				.json({ status: "Bad request", msg: "Email already exists" });
+			return res.status(400).json({
+				status: "Bad request",
+				msg: "Email already exists",
+			});
 		} else {
 			const sql =
-				"insert into users (email, password, username) values (?, ?, ?)";
+				"INSERT INTO users (email, password, username) VALUES (?, ?, ?)";
 			const [user] = await pool.query(sql, [email, password, username]);
 			// rows.insertedId is the created item id
 			// new user registration success
@@ -32,9 +33,10 @@ const register = async (req, res) => {
 					username,
 					role: "user",
 				});
+
 				return res.status(201).json({
 					status: "OK",
-					msg: "user created successfully",
+					msg: "User created successfully",
 					token,
 				});
 			} else {
@@ -58,7 +60,7 @@ const login = async (req, res) => {
 		const { email, password } = req.body;
 
 		const [users] = await pool.query(
-			"select * from users where email = ? and password = ?",
+			"SELECT * FROM users WHERE email = ? AND password = ?",
 			[email, password]
 		);
 
