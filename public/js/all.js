@@ -13,6 +13,9 @@ class User {
 }
 
 // CONSTANTS & VARIABLES
+const currentUser = sessionStorage.getItem("user")
+	? JSON.parse(sessionStorage.user)
+	: null;
 
 const BE_URL = window.location.origin; //"http://localhost:3000";
 let currentPath = window.location.pathname;
@@ -108,6 +111,62 @@ window.addEventListener("DOMContentLoaded", () => {
 	appendDomItem(mainFooter, footer);
 });
 
+function handleLogout() {
+	UIkit.modal.confirm("Confirm to logout?").then(
+		() => sessionStorage.removeItem("user"),
+		() => {}
+	);
+}
+
+const adminDashboard = `
+<li>
+	<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
+	<div class="uk-navbar-dropdown">
+ 	<ul class="uk-nav uk-navbar-dropdown-nav">
+		<li class="uk-nav-header">Admin</li>
+		<li><a href="/admin-userlist.html ">User List</a></li>
+		<li><a href="/admin-restaurantlist.html">Restarant List</a></li>
+		<li><a href="/admin-reviewlist.html">Review List</a></li>
+		<li class="uk-nav-divider"></li>
+		<li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
+	</ul>
+	</div>
+</li>`;
+
+function getAccountNavItem(currentUser) {
+	let content = `<div class="uk-navbar-right">
+					<ul class="uk-navbar-nav">
+						<li>
+							<a href="/"><span uk-icon="user"></span><span uk-navbar-parent-icon></span></a>
+							<div class="uk-navbar-dropdown">
+								<ul class="uk-nav uk-navbar-dropdown-nav">`;
+
+	if (Boolean(currentUser.userId)) {
+		content += `<li class="uk-nav-header">Account</li>
+									<li><a href="/user-profile.html">Profile</a></li>
+									<li><a href="/user-reviews.html">Reviews</a></li>
+									<li><a href="/user-favourite.html">Favourite</a></li>
+									<li class="uk-nav-divider"></li>
+									<li><a onclick="handleLogout()">Logout</a></li>`;
+	} else {
+		content += `${
+			currentPath === retrievePath("name", "register", "path")
+				? '<li class="uk-active">'
+				: "<li>"
+		}
+		<a href=${retrievePath("name", "register", "path")}>Register</a></li>
+		${
+			currentPath === retrievePath("name", "login", "path")
+				? '<li class="uk-active">'
+				: "<li>"
+		}<a href=${retrievePath("name", "login", "path")}>Login</a></li>`;
+	}
+
+	content += `</ul></div></li></ul></div>`;
+
+	return content;
+}
+
 const navbar = `
     <nav class="uk-navbar-container uk-navbar-transparent">
 		<div class="uk-container">
@@ -115,56 +174,10 @@ const navbar = `
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
 						<li class="uk-active"><a href="/">DININGADVISOR</a></li>
-						<li>
-							<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
-							<div class="uk-navbar-dropdown">
-                                <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li class="uk-nav-header">Admin</li>
-                                    <li><a href="/admin-userlist.html ">User List</a></li>
-                                    <li><a href="/admin-restaurantlist.html">Restarant List</a></li>
-                                    <li><a href="/admin-reviewlist.html">Review List</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
-                                </ul>
-							</div>
-						</li>
+						${currentUser.role === "admin" && adminDashboard}
 					</ul>
 				</div>
-				<div class="uk-navbar-right">
-					<ul class="uk-navbar-nav">
-						<li>
-							<a href="/"><span uk-icon="user"></span><span uk-navbar-parent-icon></span></a>
-							<div class="uk-navbar-dropdown">
-								<ul class="uk-nav uk-navbar-dropdown-nav">
-									${
-										currentPath === retrievePath("name", "register", "path")
-											? '<li class="uk-active">'
-											: "<li>"
-									}<a href=${retrievePath(
-	"name",
-	"register",
-	"path"
-)}>Register</a></li>
-									${
-										currentPath === retrievePath("name", "login", "path")
-											? '<li class="uk-active">'
-											: "<li>"
-									}<a href=${retrievePath(
-	"name",
-	"login",
-	"path"
-)}>Login</a></li>
-									<li class="uk-nav-header">Account</li>
-									<li><a href="/user-profile.html">Profile</a></li>
-									<li><a href="/user-reviews.html">Reviews</a></li>
-									<li><a href="/user-favourite.html">Favourite</a></li>
-									<li class="uk-nav-divider"></li>
-									<li><a href="/">Log out</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</div>
+				${getAccountNavItem(currentUser)}
 			</div>
 		</div>
 	</nav>

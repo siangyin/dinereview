@@ -18,10 +18,6 @@ for (const [key, value] of currentParams.entries()) {
 	}
 }
 
-const currentUser = sessionStorage.getItem("user")
-	? JSON.parse(sessionStorage.user)
-	: null;
-
 if (currentUser) {
 	checkFavStatus(currentUser.userId, pageStatus.restaurantId);
 	getUserReview(currentUser.userId, pageStatus.restaurantId);

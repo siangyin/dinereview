@@ -30,13 +30,6 @@ if (sessionStorage.getItem("review")) {
 		pageStatus.restaurantName ?? "";
 }
 
-// to add review : {action: "new",restaurantId: "1",restaurantName": "Cut by Wolfgang Puck"}
-// to edit review : {action:'edit',reviewId:'1'}
-// to view review : {action:'view',reviewId:'1'}
-
-const currentUser = sessionStorage.getItem("user")
-	? JSON.parse(sessionStorage.user)
-	: null;
 // example currentUser obj: { userId: 1, username: "Michael J Mark", email: "aletha_hauc4@gmail.com", role: "user" }
 // example pageStatus obj: {action: "new",restaurantId: "1",restaurantName: "Cut by Wolfgang Puck"}
 

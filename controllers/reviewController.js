@@ -8,7 +8,7 @@ const addReview = async (req, res) => {
 		let sql = "";
 		let sqlVal = [];
 		if (restaurantId && content && rating) {
-			sql = `INSERT INTO Reviews (restaurantId, userId, title, content, rating) values(?,?,?,?,?)`;
+			sql = `INSERT INTO Reviews (restaurantId, userId, title, content, rating) VALUES(?,?,?,?,?)`;
 			sqlVal = [restaurantId, userId, title ?? null, content, rating];
 			let [row] = await pool.query(sql, sqlVal);
 
@@ -18,7 +18,7 @@ const addReview = async (req, res) => {
 				if (Boolean(photos.length)) {
 					// if has photos, insert photos
 					for (const item of photos) {
-						sql = `INSERT INTO Photos (restaurantId, reviewId, photoUrl, defaultPhoto, addedBy) values (?, ? ,?, ? ,?)`;
+						sql = `INSERT INTO Photos (restaurantId, reviewId, photoUrl, defaultPhoto, addedBy) VALUES (?, ? ,?, ? ,?)`;
 						sqlVal = [restaurantId, reviewId, item.photoUrl, false, userId];
 						[row] = await pool.query(sql, sqlVal);
 
@@ -28,7 +28,7 @@ const addReview = async (req, res) => {
 				}
 
 				// update review status from draft to active
-				sql = `update Reviews set status = ? WHERE reviewId =?`;
+				sql = `update Reviews SET status = ? WHERE reviewId =?`;
 				sqlVal = ["active", reviewId];
 				[row] = await pool.query(sql, sqlVal);
 
@@ -138,7 +138,7 @@ const updateReview = async (req, res) => {
 		// update review content
 		if (userId && restaurantId && reviewId) {
 			const { title, content, rating, photos } = req.body;
-			let sql = `update Reviews set title = ?, content = ?, rating = ? WHERE reviewId = ?`;
+			let sql = `update Reviews SET title = ?, content = ?, rating = ? WHERE reviewId = ?`;
 			let sqlVal = [title, content, rating, reviewId];
 			let [row] = await pool.query(sql, sqlVal);
 			msg.push(row.affectedRows ? "review updated" : "review update failed");
@@ -163,7 +163,7 @@ const updateReview = async (req, res) => {
 				if (Boolean(updatePhoto.length)) {
 					// update photo
 					for (const item of updatePhoto) {
-						sql = `update Photos set photoUrl = ?, restaurantId = ? WHERE photoId = ?`;
+						sql = `update Photos SET photoUrl = ?, restaurantId = ? WHERE photoId = ?`;
 						sqlVal = [item.photoUrl, restaurantId, item.photoId];
 						[row] = await pool.query(sql, sqlVal);
 						!row.affectedRows &&
@@ -174,7 +174,7 @@ const updateReview = async (req, res) => {
 				if (Boolean(insertPhoto.length)) {
 					// insert photo
 					for (const item of insertPhoto) {
-						sql = `INSERT INTO Photos (restaurantId, photoUrl, reviewId, addedBy) values (?, ? ,?, ?)`;
+						sql = `INSERT INTO Photos (restaurantId, photoUrl, reviewId, addedBy) VALUES (?, ? ,?, ?)`;
 						sqlVal = [restaurantId, item.photoUrl, reviewId, userId];
 						[row] = await pool.query(sql, sqlVal);
 						!row.insertId &&

@@ -14,11 +14,6 @@ let userDetails = [
 	{ id: "profilePhoto", hasChanged: false },
 ];
 
-// get userId
-const currentUser = sessionStorage.getItem("user")
-	? JSON.parse(sessionStorage.user)
-	: null;
-
 // if is not loggedin, direct to login page
 if (
 	sessionStorage.getItem("user") == null ||

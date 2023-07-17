@@ -1,10 +1,5 @@
 "use strict";
 
-// CONSTANTS & VARIABLES
-const currentUser = sessionStorage.getItem("user")
-	? JSON.parse(sessionStorage.user)
-	: null;
-
 if (currentUser) {
 	fetchData(currentUser.userId);
 } else {

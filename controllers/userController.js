@@ -4,7 +4,7 @@ const getUserProfile = async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		let sql = `SELECT * from users WHERE userId =?`;
+		let sql = `SELECT * FROM users WHERE userId =?`;
 		let [user] = await pool.query(sql, [id]);
 		if (user[0]) {
 			return res.status(200).json({
@@ -37,7 +37,7 @@ const updateUserProfile = async (req, res) => {
 				sqlVal.push(userUpdate[prop]);
 			}
 
-			sql = `update users set ${sql.replace(",", "")} WHERE userId = ?`;
+			sql = `UPDATE users SET ${sql.replace(",", "")} WHERE userId = ?`;
 
 			let [user] = await pool.query(sql, [...sqlVal, id]);
 
@@ -68,7 +68,7 @@ const updateUserProfile = async (req, res) => {
 
 const getUserList = async (req, res) => {
 	try {
-		let sql = `SELECT * from users`;
+		let sql = `SELECT * FROM users`;
 		let [users] = await pool.query(sql);
 
 		if (users) {
