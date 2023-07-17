@@ -50,7 +50,7 @@ const register = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -88,7 +88,7 @@ const login = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };

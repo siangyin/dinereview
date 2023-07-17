@@ -8,7 +8,7 @@ const addReview = async (req, res) => {
 		let sql = "";
 		let sqlVal = [];
 		if (restaurantId && content && rating) {
-			sql = `insert into Reviews (restaurantId, userId, title, content, rating) values(?,?,?,?,?)`;
+			sql = `INSERT INTO Reviews (restaurantId, userId, title, content, rating) values(?,?,?,?,?)`;
 			sqlVal = [restaurantId, userId, title ?? null, content, rating];
 			let [row] = await pool.query(sql, sqlVal);
 
@@ -18,7 +18,7 @@ const addReview = async (req, res) => {
 				if (Boolean(photos.length)) {
 					// if has photos, insert photos
 					for (const item of photos) {
-						sql = `insert into Photos (restaurantId, reviewId, photoUrl, defaultPhoto, addedBy) values (?, ? ,?, ? ,?)`;
+						sql = `INSERT INTO Photos (restaurantId, reviewId, photoUrl, defaultPhoto, addedBy) values (?, ? ,?, ? ,?)`;
 						sqlVal = [restaurantId, reviewId, item.photoUrl, false, userId];
 						[row] = await pool.query(sql, sqlVal);
 
@@ -28,7 +28,7 @@ const addReview = async (req, res) => {
 				}
 
 				// update review status from draft to active
-				sql = `update Reviews set status = ? where reviewId =?`;
+				sql = `update Reviews set status = ? WHERE reviewId =?`;
 				sqlVal = ["active", reviewId];
 				[row] = await pool.query(sql, sqlVal);
 
@@ -57,7 +57,7 @@ const addReview = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -69,28 +69,28 @@ const getReviews = async (req, res) => {
 		let data;
 		let sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews left join restaurants on reviews.restaurantId = restaurants.restaurantId`;
 		if (userId && restaurantId) {
-			sql = sql + ` where reviews.restaurantId = ? and reviews.userId = ?`;
+			sql = sql + ` WHERE reviews.restaurantId = ? and reviews.userId = ?`;
 			const [row] = await pool.query(sql, [restaurantId, userId]);
 
 			if (Boolean(row)) {
 				data = row;
 			}
 		} else if (userId) {
-			sql = sql + ` where reviews.userId = ?`;
+			sql = sql + ` WHERE reviews.userId = ?`;
 			const [row] = await pool.query(sql, [userId]);
 
 			if (Boolean(row)) {
 				data = row;
 			}
 		} else if (restaurantId) {
-			sql = sql + ` where reviews.restaurantId = ?`;
+			sql = sql + ` WHERE reviews.restaurantId = ?`;
 			const [row] = await pool.query(sql, [restaurantId]);
 
 			if (Boolean(row)) {
 				data = row;
 			}
 		} else if (reviewId) {
-			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, users.username, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews, restaurants, users where reviews.restaurantId = restaurants.restaurantId and reviews.userId = users.userId and reviews.reviewId =? `;
+			sql = `select reviews.reviewId, reviews.restaurantId, restaurants.name,reviews.userId, users.username, reviews.title, reviews.content, reviews.rating, reviews.createdOn from reviews, restaurants, users WHERE reviews.restaurantId = restaurants.restaurantId and reviews.userId = users.userId and reviews.reviewId =? `;
 			const [row] = await pool.query(sql, [reviewId]);
 
 			if (Boolean(row)) {
@@ -108,7 +108,7 @@ const getReviews = async (req, res) => {
 		// if has result find all photos
 		if (Boolean(data.length)) {
 			for (const db of data) {
-				const sql = `select * from Photos where reviewId = ?`;
+				const sql = `SELECT * from Photos WHERE reviewId = ?`;
 				const [row] = await pool.query(sql, db.reviewId);
 				db.photos = row;
 			}
@@ -125,7 +125,7 @@ const getReviews = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -138,7 +138,7 @@ const updateReview = async (req, res) => {
 		// update review content
 		if (userId && restaurantId && reviewId) {
 			const { title, content, rating, photos } = req.body;
-			let sql = `update Reviews set title = ?, content = ?, rating = ? where reviewId = ?`;
+			let sql = `update Reviews set title = ?, content = ?, rating = ? WHERE reviewId = ?`;
 			let sqlVal = [title, content, rating, reviewId];
 			let [row] = await pool.query(sql, sqlVal);
 			msg.push(row.affectedRows ? "review updated" : "review update failed");
@@ -157,13 +157,13 @@ const updateReview = async (req, res) => {
 				});
 
 				// to update Photos, remove existing and replace current photos
-				sql = `delete from photos where reviewId = ${reviewId} and addedBy = ${userId} and photoId NOT IN (${existingId.toString()})`;
+				sql = `DELETE FROM photos WHERE reviewId = ${reviewId} and addedBy = ${userId} and photoId NOT IN (${existingId.toString()})`;
 				[row] = await pool.query(sql);
 
 				if (Boolean(updatePhoto.length)) {
 					// update photo
 					for (const item of updatePhoto) {
-						sql = `update Photos set photoUrl = ?, restaurantId = ? where photoId = ?`;
+						sql = `update Photos set photoUrl = ?, restaurantId = ? WHERE photoId = ?`;
 						sqlVal = [item.photoUrl, restaurantId, item.photoId];
 						[row] = await pool.query(sql, sqlVal);
 						!row.affectedRows &&
@@ -174,7 +174,7 @@ const updateReview = async (req, res) => {
 				if (Boolean(insertPhoto.length)) {
 					// insert photo
 					for (const item of insertPhoto) {
-						sql = `insert into Photos (restaurantId, photoUrl, reviewId, addedBy) values (?, ? ,?, ?)`;
+						sql = `INSERT INTO Photos (restaurantId, photoUrl, reviewId, addedBy) values (?, ? ,?, ?)`;
 						sqlVal = [restaurantId, item.photoUrl, reviewId, userId];
 						[row] = await pool.query(sql, sqlVal);
 						!row.insertId &&
@@ -195,7 +195,7 @@ const updateReview = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Server error",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -204,14 +204,14 @@ const updateReview = async (req, res) => {
 const deleteReview = async (req, res) => {
 	try {
 		const { id } = req.params;
-		let sql = `delete from photos where reviewId = ?`;
+		let sql = `DELETE FROM photos WHERE reviewId = ?`;
 		let [row] = await pool.query(sql, [id]);
 		let msg;
 		if (row) {
 			msg = "Photo";
 		}
 
-		sql = `delete from reviews where reviewId = ?`;
+		sql = `DELETE FROM reviews WHERE reviewId = ?`;
 		[row] = await pool.query(sql, [id]);
 		if (row.affectedRows) {
 			msg = `Review ${msg && "&" + msg} deleted`;
@@ -224,7 +224,7 @@ const deleteReview = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Server error",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };

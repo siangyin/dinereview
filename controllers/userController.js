@@ -4,7 +4,7 @@ const getUserProfile = async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		let sql = `select * from users where userId =?`;
+		let sql = `SELECT * from users WHERE userId =?`;
 		let [user] = await pool.query(sql, [id]);
 		if (user[0]) {
 			return res.status(200).json({
@@ -19,7 +19,7 @@ const getUserProfile = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -37,7 +37,7 @@ const updateUserProfile = async (req, res) => {
 				sqlVal.push(userUpdate[prop]);
 			}
 
-			sql = `update users set ${sql.replace(",", "")} where userId = ?`;
+			sql = `update users set ${sql.replace(",", "")} WHERE userId = ?`;
 
 			let [user] = await pool.query(sql, [...sqlVal, id]);
 
@@ -61,14 +61,14 @@ const updateUserProfile = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
 
 const getUserList = async (req, res) => {
 	try {
-		let sql = `select * from users`;
+		let sql = `SELECT * from users`;
 		let [users] = await pool.query(sql);
 
 		if (users) {
@@ -86,7 +86,7 @@ const getUserList = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };

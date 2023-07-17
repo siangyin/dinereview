@@ -4,7 +4,7 @@ const addRestaurant = async (req, res) => {
 	try {
 		const { restaurant, photos } = req.body;
 		const msg = [];
-		if (Object.entries(restaurant).length) {
+		if (Object.keys(restaurant).length !== 0) {
 			// insert restaurant table
 			let sqlVal = [];
 			let sql = "";
@@ -14,10 +14,10 @@ const addRestaurant = async (req, res) => {
 				sqlVal.push(restaurant[prop]);
 			}
 
-			sql = `insert restaurants set ${sql.replace(",", "")}`;
+			sql = `INSERT INTO restaurants SET ${sql.replace(",", "")}`;
 			let [row] = await pool.query(sql, sqlVal);
 			if (!row.insertId) {
-				msg.push("restaurant table insertion failed");
+				msg.push("Restaurant table insertion failed");
 			} else {
 				// Restaurant added successfully
 				// get restaurantId
@@ -28,7 +28,7 @@ const addRestaurant = async (req, res) => {
 					// E.G. INSERT INTO Photos (restaurantId, photoUrl, defaultPhoto, createdOn, addedBy)
 
 					for (const item of photos) {
-						sql = `insert into Photos (restaurantId, photoUrl, defaultPhoto) values (?, ? ,?)`;
+						sql = `INSERT INTO photos (restaurantId, photoUrl, defaultPhoto) VALUES (?, ?, ?)`;
 						sqlVal = [
 							restaurant.restaurantId,
 							item.photoUrl,
@@ -37,13 +37,13 @@ const addRestaurant = async (req, res) => {
 						[row] = await pool.query(sql, sqlVal);
 
 						!row.insertId &&
-							msg.push(`restaurant photo ${item.photoUrl} insertion failed`);
+							msg.push(`Restaurant photo ${item.photoUrl} insertion failed`);
 					}
 				}
 			}
 
 			// change restaurant status from draft to active
-			sql = "update restaurants set status = ? where restaurantId = ?";
+			sql = "UPDATE restaurants SET status = ? WHERE restaurantId = ?";
 			[row] = await pool.query(sql, ["active", restaurant.restaurantId]);
 
 			return res.status(200).json({
@@ -60,7 +60,7 @@ const addRestaurant = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -70,7 +70,7 @@ const updateRestaurant = async (req, res) => {
 		const { id } = req.params;
 		const { restaurant, photos } = req.body;
 		const msg = [];
-		if (Object.entries(restaurant).length) {
+		if (Object.keys(restaurant).length !== 0) {
 			let sqlVal = [];
 			let sql = "";
 
@@ -79,15 +79,15 @@ const updateRestaurant = async (req, res) => {
 				sqlVal.push(restaurant[prop]);
 			}
 
-			sql = `update restaurants set ${sql.replace(
+			sql = `UPDATE restaurants SET ${sql.replace(
 				",",
 				""
-			)} where restaurantId = ?`;
+			)} WHERE restaurantId = ?`;
 
 			let [row] = await pool.query(sql, [...sqlVal, id]);
 
 			if (!row.affectedRows) {
-				msg.push("restaurant table update failed");
+				msg.push("Restaurant table update failed");
 			} else {
 				// Restaurant updated successfully
 				if (Boolean(photos.length)) {
@@ -103,15 +103,15 @@ const updateRestaurant = async (req, res) => {
 						}
 					});
 
-					// to update Photos, remove existing and replace current photos
-					// E.G. insert into Photos (restaurantId, photoUrl, defaultPhoto, createdOn, addedBy)
-					sql = `delete from photos where restaurantId =? and reviewId IS NULL and addedBy IS NULL and photoId NOT IN (${existingId.toString()})`;
+					// to update Photos, remove existing AND replace current photos
+					// E.G. INSERT INTO Photos (restaurantId, photoUrl, defaultPhoto, createdOn, addedBy)
+					sql = `DELETE FROM photos WHERE restaurantId = ? AND reviewId IS NULL AND addedBy IS NULL AND photoId NOT IN (${existingId.toString()})`;
 					[row] = await pool.query(sql, [id]);
 
 					if (Boolean(updatePhoto.length)) {
 						// update photo
 						for (const item of updatePhoto) {
-							sql = `update Photos set photoUrl = ?, defaultPhoto = ? where photoId = ?`;
+							sql = `UPDATE photos SET photoUrl = ?, defaultPhoto = ? WHERE photoId = ?`;
 							sqlVal = [
 								item.photoUrl,
 								item.defaultPhoto ?? false,
@@ -119,30 +119,30 @@ const updateRestaurant = async (req, res) => {
 							];
 							[row] = await pool.query(sql, sqlVal);
 							!row.affectedRows &&
-								msg.push(`photoId ${item.photoId} update failed`);
+								msg.push(`PhotoId ${item.photoId} update failed`);
 						}
 					}
 
 					if (Boolean(insertPhoto.length)) {
 						// insert photo
 						for (const item of insertPhoto) {
-							sql = `insert into Photos (restaurantId, photoUrl, defaultPhoto) values (?, ? ,?)`;
+							sql = `INSERT INTO photos (restaurantId, photoUrl, defaultPhoto) VALUES (?, ?, ?)`;
 							sqlVal = [id, item.photoUrl, item.defaultPhoto ?? false];
 							[row] = await pool.query(sql, sqlVal);
 							!row.insertId &&
-								msg.push(`photo ${item.photoUrl} insertion failed`);
+								msg.push(`Photo ${item.photoUrl} insertion failed`);
 						}
 					}
 				}
 			}
 
-			// get updated restaurant and photo
-			sql = "select * from restaurants where restaurantId = ?";
+			// get updated restaurant AND photo
+			sql = "SELECT * FROM restaurants WHERE restaurantId = ?";
 			[row] = await pool.query(sql, [id]);
 			const updatedRestaurant = row[0];
 
 			sql =
-				"select * from photos where restaurantId =? and reviewId IS NULL and addedBy IS NULL";
+				"SELECT * FROM photos WHERE restaurantId = ? AND reviewId IS NULL AND addedBy IS NULL";
 			[row] = await pool.query(sql, [id]);
 			updatedRestaurant["photos"] = [...row];
 
@@ -160,7 +160,7 @@ const updateRestaurant = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -169,19 +169,19 @@ const getRestaurantDetail = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const data = {};
-		let sql = `select * from Restaurants where restaurantId = ?`;
+		let sql = `SELECT * FROM restaurants WHERE restaurantId = ?`;
 		let [row] = await pool.query(sql, [id]);
 
 		if (row[0]) {
 			data["restaurant"] = row[0];
 
-			sql = `select * from Photos where restaurantId = ?`;
+			sql = `SELECT * FROM photos WHERE restaurantId = ?`;
 			[row] = await pool.query(sql, [id]);
 			// get admin uploaded photos
-			data["photos"] = row;
+			data.photos = row;
 
 			// get all reviews of query restaurant
-			sql = `select * from Reviews where restaurantId = ?`;
+			sql = `SELECT * FROM reviews WHERE restaurantId = ?`;
 			[row] = await pool.query(sql, [id]);
 			data.avgRating = null;
 			data.totalReviews = 0;
@@ -190,7 +190,7 @@ const getRestaurantDetail = async (req, res) => {
 			// if found related review of query restaurant
 			if (Boolean(row.length)) {
 				const [count] = await pool.query(
-					`select AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${id}`
+					`SELECT AVG(rating) AS avg, COUNT(*) AS counts FROM reviews WHERE restaurantId = ${id}`
 				);
 				data.totalReviews = Number.parseInt(count[0].counts);
 				data.avgRating = +parseFloat(count[0].avg).toFixed(1) ?? null;
@@ -198,7 +198,7 @@ const getRestaurantDetail = async (req, res) => {
 				// Loop thru each Reviews row
 				for (let item of row) {
 					// find review's user detail
-					sql = `select * from Users where userId =${item.userId}`;
+					sql = `SELECT * FROM users WHERE userId = ${item.userId}`;
 					const [user] = await pool.query(sql);
 
 					if (Boolean(user[0])) {
@@ -207,7 +207,7 @@ const getRestaurantDetail = async (req, res) => {
 					}
 
 					// find review's relevant photos
-					sql = `select photoId, photoUrl from Photos where reviewId = ${item.reviewId}`;
+					sql = `SELECT photoId, photoUrl FROM photos WHERE reviewId = ${item.reviewId}`;
 					const [row2] = await pool.query(sql);
 
 					if (Boolean(row2)) {
@@ -231,7 +231,7 @@ const getRestaurantDetail = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -239,7 +239,7 @@ const getRestaurantDetail = async (req, res) => {
 const getRestaurantsList = async (req, res) => {
 	try {
 		const data = [];
-		let sql = `select * from Restaurants where status = ?`;
+		let sql = `SELECT * FROM Restaurants WHERE status = ?`;
 		let [row] = await pool.query(sql, ["active"]);
 
 		if (Boolean(row)) {
@@ -258,14 +258,15 @@ const getRestaurantsList = async (req, res) => {
 
 				//  get Restaurant Primary Photo
 				const [row2] = await pool.query(
-					`select * from Photos where restaurantId = ? and defaultPhoto =?`,
+					`SELECT * FROM Photos WHERE restaurantId = ? AND defaultPhoto = ?`,
 					[i.restaurantId, true]
 				);
 
 				db.photos = row2[0].photoUrl ?? null;
 
 				const [count] = await pool.query(
-					`select AVG(rating) as avg, count(*) as counts from Reviews where restaurantId = ${i.restaurantId}`
+					`SELECT AVG(rating) AS avg, COUNT(*) AS counts FROM Reviews WHERE restaurantId = ?`,
+					[i.restaurantId]
 				);
 
 				db.totalReviews = Number.parseInt(count[0].counts);
@@ -288,7 +289,7 @@ const getRestaurantsList = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -299,22 +300,22 @@ const deleteRestaurant = async (req, res) => {
 		const success = [];
 		const failed = [];
 		let msg;
-		let sql = `delete from SavedRestaurants where restaurantId = ?`;
+		let sql = `DELETE FROM SavedRestaurants WHERE restaurantId = ?`;
 		let [row] = await pool.query(sql, [id]);
 
 		row ? success.push("Favourite") : failed.push("Favourite");
 
-		sql = `delete from Photos where restaurantId = ?`;
+		sql = `DELETE FROM Photos WHERE restaurantId = ?`;
 		[row] = await pool.query(sql, [id]);
 
 		row ? success.push("Photos") : failed.push("Photos");
 
-		sql = `delete from Reviews where restaurantId = ?`;
+		sql = `DELETE FROM Reviews WHERE restaurantId = ?`;
 		[row] = await pool.query(sql, [id]);
 
 		row ? success.push("Reviews") : failed.push("Reviews");
 
-		sql = `delete from Restaurants where restaurantId = ?`;
+		sql = `DELETE FROM Restaurants WHERE restaurantId = ?`;
 		[row] = await pool.query(sql, [id]);
 
 		if (row) {
@@ -332,10 +333,6 @@ const deleteRestaurant = async (req, res) => {
 				failed.length && "except" + failed.toString()
 			}${success.length && ", has deleted data in " + success.toString()} `;
 
-			console.log({
-				status: "OK",
-				msg: msg,
-			});
 			return res.status(400).json({
 				status: "Request failed",
 				msg: msg,
@@ -344,7 +341,7 @@ const deleteRestaurant = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Server error",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -355,12 +352,12 @@ const saveFavourite = async (req, res) => {
 
 		if (userId && restaurantId) {
 			// check if user has saved the restaurant
-			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let sql = `SELECT * from SavedRestaurants WHERE restaurantId = ? AND userId = ?`;
 			let [row] = await pool.query(sql, [restaurantId, userId]);
 
 			// if not saved, save the user fav restaurant
 			if (!Boolean(row.length)) {
-				sql = `insert into SavedRestaurants (restaurantId, userId) values (? ,?)`;
+				sql = `INSERT INTO SavedRestaurants (restaurantId, userId) VALUES (? ,?)`;
 				[row] = await pool.query(sql, [restaurantId, userId]);
 
 				if (row.affectedRows) {
@@ -383,7 +380,7 @@ const saveFavourite = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -394,7 +391,7 @@ const getFavourite = async (req, res) => {
 
 		if (userId && restaurantId) {
 			// check if user has saved the restaurant
-			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let sql = `SELECT * FROM SavedRestaurants WHERE restaurantId = ? AND userId = ?`;
 			let [row] = await pool.query(sql, [restaurantId, userId]);
 
 			return res.status(200).json({
@@ -403,14 +400,14 @@ const getFavourite = async (req, res) => {
 			});
 		} else if (userId) {
 			// get user fav list with restaurant detail
-			let sql = `select SavedRestaurants.restaurantId, Restaurants.name, Restaurants.type, Restaurants.cuisine, SavedRestaurants.addedOn 
-			from SavedRestaurants LEFT JOIN Restaurants ON SavedRestaurants.restaurantId = Restaurants.restaurantId  where SavedRestaurants.userId= ${userId}`;
+			let sql = `SELECT SavedRestaurants.restaurantId, Restaurants.name, Restaurants.type, Restaurants.cuisine, SavedRestaurants.addedOn 
+			from SavedRestaurants LEFT JOIN Restaurants ON SavedRestaurants.restaurantId = Restaurants.restaurantId  WHERE SavedRestaurants.userId= ${userId}`;
 			let [row] = await pool.query(sql);
 			const data = [];
 			if (Boolean(row.length)) {
 				for (let item of row) {
 					const restaurant = { ...item };
-					sql = `select AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${item.restaurantId}`;
+					sql = `SELECT AVG(rating) as avg, count(*) as counts FROM Reviews WHERE restaurantId = ${item.restaurantId}`;
 					const [review] = await pool.query(sql);
 					restaurant.totalReviews = Number.parseInt(review[0].counts);
 					restaurant.avgRating = +parseFloat(review[0].avg).toFixed(1) ?? null;
@@ -431,7 +428,7 @@ const getFavourite = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
@@ -442,12 +439,12 @@ const removeFavourite = async (req, res) => {
 
 		if (userId && restaurantId) {
 			// check if user has saved the restaurant
-			let sql = `select * from SavedRestaurants where restaurantId = ? and userId = ?`;
+			let sql = `SELECT * from SavedRestaurants WHERE restaurantId = ? AND userId = ?`;
 			let [row] = await pool.query(sql, [restaurantId, userId]);
 
 			// if not saved, save the user fav restaurant
 			if (Boolean(row.length)) {
-				sql = `delete from SavedRestaurants where restaurantId = ? and userId = ?`;
+				sql = `DELETE FROM SavedRestaurants WHERE restaurantId = ? AND userId = ?`;
 				[row] = await pool.query(sql, [restaurantId, userId]);
 
 				if (row) {
@@ -470,7 +467,7 @@ const removeFavourite = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({
 			status: "Something went wrong, please try again",
-			msg: error,
+			msg: error.message,
 		});
 	}
 };
