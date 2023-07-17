@@ -1,10 +1,14 @@
 "use strict";
 
+const currentUser = localStorage.getItem("user")
+	? JSON.parse(localStorage.user)
+	: null;
+
 if (currentUser) {
 	getFavList(currentUser.userId);
 } else {
 	const history = window.location.href;
-	sessionStorage.setItem("history", history);
+	localStorage.setItem("history", history);
 	window.location.assign("/login.html");
 }
 

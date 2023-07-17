@@ -60,33 +60,30 @@ async function submitUserAccess(action, reqBody) {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				// Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+				// Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			body: JSON.stringify(reqBody),
 		})
 			.then((res) => res.json())
 			.then((res) => {
 				if (res.status == "OK") {
-					sessionStorage.removeItem("token");
-					sessionStorage.removeItem("user");
+					localStorage.removeItem("token");
+					localStorage.removeItem("user");
 					removeAllChildsElement(alertMsg);
-					// store user data in sessionStorage
-					sessionStorage.setItem(
-						"user",
-						JSON.stringify(
-							new User(
-								res.data.userId,
-								res.data.username,
-								res.data.email,
-								res.data.role
-							)
-						)
+					// store user data in localStorage
+					const userLogged = new User(
+						res.data.userId,
+						res.data.username,
+						res.data.email,
+						res.data.role
 					);
-					sessionStorage.setItem("token", res.token);
+					updateNavDom(userLogged);
+					localStorage.setItem("user", JSON.stringify(userLogged));
+					localStorage.setItem("token", res.token);
 					// if have history back to last visited url or go home
-					if (sessionStorage.getItem("history")) {
-						const backToLastUrl = sessionStorage.getItem("history");
-						sessionStorage.removeItem("history");
+					if (localStorage.getItem("history")) {
+						const backToLastUrl = localStorage.getItem("history");
+						localStorage.removeItem("history");
 						window.location.assign(backToLastUrl);
 					} else {
 						window.location.assign("/index.html");
@@ -97,8 +94,8 @@ async function submitUserAccess(action, reqBody) {
 			});
 	} catch (error) {
 		console.error(error);
-		sessionStorage.removeItem("token");
-		sessionStorage.removeItem("user");
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
 	}
 }
 

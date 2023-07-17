@@ -1,6 +1,10 @@
 "use strict";
 
 // VARIABLES
+const currentUser = localStorage.getItem("user")
+	? JSON.parse(localStorage.user)
+	: null;
+
 const pageStatus = {};
 const currentParams = new URLSearchParams(window.location.search);
 const beUrl = `${BE_URL}/api/v1/user`;
@@ -16,11 +20,11 @@ let userDetails = [
 
 // if is not loggedin, direct to login page
 if (
-	sessionStorage.getItem("user") == null ||
-	sessionStorage.getItem("user") == undefined
+	localStorage.getItem("user") == null ||
+	localStorage.getItem("user") == undefined
 ) {
 	const history = window.location.href;
-	sessionStorage.setItem("history", history);
+	localStorage.setItem("history", history);
 	window.location.assign("/login.html");
 }
 
@@ -53,7 +57,7 @@ async function getUserProfile(id) {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
-				Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 		})
 			.then((res) => res.json())
@@ -76,7 +80,7 @@ async function updateUserProfile(id, payload) {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			body: JSON.stringify(payload),
 		})

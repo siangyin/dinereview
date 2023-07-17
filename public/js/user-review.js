@@ -1,6 +1,10 @@
 "use strict";
 
 // CONSTANTS & VARIABLES
+const currentUser = localStorage.getItem("user")
+	? JSON.parse(localStorage.user)
+	: null;
+
 const pageStatus = {
 	action: "new",
 };
@@ -24,8 +28,8 @@ const photoList = {};
 // const loadingImg =
 // 	"https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921";
 
-if (sessionStorage.getItem("review")) {
-	Object.assign(pageStatus, JSON.parse(sessionStorage.review));
+if (localStorage.getItem("review")) {
+	Object.assign(pageStatus, JSON.parse(localStorage.review));
 	document.getElementById("restaurantName").value =
 		pageStatus.restaurantName ?? "";
 }
@@ -35,7 +39,7 @@ if (sessionStorage.getItem("review")) {
 
 if (!currentUser) {
 	const history = window.location.href;
-	sessionStorage.setItem("history", history);
+	localStorage.setItem("history", history);
 	window.location.assign("/login.html");
 }
 
@@ -192,13 +196,13 @@ async function saveReview(payload, action) {
 	};
 	let reviewId = pageStatus.reviewId ?? undefined;
 	let beUrl = `${BE_URL}/api/v1/review`;
-	sessionStorage.removeItem("review");
+	localStorage.removeItem("review");
 	try {
 		fetch(beUrl, {
 			method: method,
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			body: JSON.stringify(payload),
 		})

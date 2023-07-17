@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- UIKIT CSS & JS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/all.css" />
 	</head>
+
 	<body>
 		<header id="mainHeader"></header>
 		<main id="mainContent" class="uk-container uk-margin">
@@ -28,103 +24,51 @@
 			<div uk-grid>
 				<div class="uk-width-1-3@s">
 					<div class="uk-card-muted uk-text-center">
-						<img
-							id="profilePhotoImg"
-							class="uk-border-circle"
-							src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-							width="200"
-							height="200"
-							alt="Border circle"
-						/>
+						<img id="profilePhotoImg" class="uk-border-circle"
+							src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" width="200" height="200"
+							alt="Border circle" />
 					</div>
 				</div>
 				<div class="uk-width-2-3@s">
 					<form id="user-profile-form">
-						<div
-							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
-							uk-grid
-						>
-							<label
-								class="uk-width-1-3@s uk-margin-auto-vertical"
-								for="username"
-							>
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical" for="username">
 								Username
 							</label>
 							<div class="uk-width-2-3@s">
-								<input
-									class="uk-input"
-									id="username"
-									type="text"
-									placeholder="Username"
-								/>
+								<input class="uk-input" id="username" type="text" placeholder="Username" />
 							</div>
 						</div>
 
-						<div
-							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
-							uk-grid
-						>
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
 							<label class="uk-width-1-3@s uk-margin-auto-vertical" for="email">
 								Email
 							</label>
 							<div class="uk-width-2-3@s">
-								<input
-									class="uk-input"
-									id="email"
-									type="email"
-									placeholder="Email"
-								/>
+								<input class="uk-input" id="email" type="email" placeholder="Email" />
 							</div>
 						</div>
 
-						<div
-							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
-							uk-grid
-						>
-							<label
-								class="uk-width-1-3@s uk-margin-auto-vertical"
-								for="password"
-							>
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical" for="password">
 								Password
 							</label>
 							<div class="uk-width-2-3@s">
-								<input
-									class="uk-input"
-									id="password"
-									type="text"
-									placeholder="Password"
-								/>
+								<input class="uk-input" id="password" type="text" placeholder="Password" />
 							</div>
 						</div>
 
-						<div
-							class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom"
-							uk-grid
-						>
-							<label
-								class="uk-width-1-3@s uk-margin-auto-vertical"
-								for="profilePhoto"
-							>
+						<div class="uk-grid-row-collapse uk-grid-column-collapse uk-margin-small-bottom" uk-grid>
+							<label class="uk-width-1-3@s uk-margin-auto-vertical" for="profilePhoto">
 								Profile Photo Image Url
 							</label>
 							<div class="uk-width-2-3@s">
-								<input
-									class="uk-input"
-									id="profilePhoto"
-									type="text"
-									placeholder="Profile Photo Image Url"
-								/>
+								<input class="uk-input" id="profilePhoto" type="text" placeholder="Profile Photo Image Url" />
 							</div>
 						</div>
 					</form>
-					<div
-						class="uk-flex uk-flex-center uk-flex-right@s uk-margin-medium uk-margin-small-bottom"
-					>
-						<button
-							id="submitBtn"
-							class="uk-button uk-button-default uk-margin-left"
-							disabled
-						>
+					<div class="uk-flex uk-flex-center uk-flex-right@s uk-margin-medium uk-margin-small-bottom">
+						<button id="submitBtn" class="uk-button uk-button-default uk-margin-left" disabled>
 							Save
 						</button>
 					</div>
@@ -134,62 +78,19 @@
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
 	</body>
+
 </html>
-<!-- /uk-notification -->
-<!-- 
-<div
-	class="uk-notification uk-notification-bottom-right"
-	style="display: block"
->
-	<div
-		class="uk-notification-message uk-notification-message-success"
-		role="alert"
-		style="opacity: 1; margin-bottom: 0px"
-	>
-		<a
-			href=""
-			class="uk-notification-close uk-icon uk-close"
-			data-uk-close=""
-			role="button"
-			aria-label="Close"
-			><svg width="14" height="14" viewBox="0 0 14 14">
-				<line
-					fill="none"
-					stroke="#000"
-					stroke-width="1.1"
-					x1="1"
-					y1="1"
-					x2="13"
-					y2="13"
-				></line>
-				<line
-					fill="none"
-					stroke="#000"
-					stroke-width="1.1"
-					x1="13"
-					y1="1"
-					x2="1"
-					y2="13"
-				></line></svg
-		></a>
-		<div>
-			<span
-				><svg
-					xmlns="http://www.w3.org/2000/svg"
-					height="1em"
-					viewBox="0 0 512 512"
-				>
-					<!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-					<style>
-						svg {
-							fill: #32d296;
-						}
-					</style>
-					<path
-						d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
-					></path></svg
-			></span>
-			Restaurant removed from favourite…
-		</div>
+
+<li>
+	<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
+	<div class="uk-navbar-dropdown">
+		<ul class="uk-nav uk-navbar-dropdown-nav">
+			<li class="uk-nav-header">Admin</li>
+			<li><a href="/admin-userlist.html ">User List</a></li>
+			<li><a href="/admin-restaurantlist.html">Restarant List</a></li>
+			<li><a href="/admin-reviewlist.html">Review List</a></li>
+			<li class="uk-nav-divider"></li>
+			<li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
+		</ul>
 	</div>
-</div> -->
+</li>

@@ -1,7 +1,6 @@
 "use strict";
 
 // CLASS
-
 class User {
 	constructor(userId, username, email, role, pic) {
 		this.userId = userId;
@@ -11,11 +10,6 @@ class User {
 		this.pic = pic ?? undefined;
 	}
 }
-
-// CONSTANTS & VARIABLES
-const currentUser = sessionStorage.getItem("user")
-	? JSON.parse(sessionStorage.user)
-	: null;
 
 const BE_URL = window.location.origin; //"http://localhost:3000";
 let currentPath = window.location.pathname;
@@ -106,91 +100,116 @@ const mainFooter = document.getElementById("mainFooter");
 const mainContent = document.getElementById("mainContent");
 
 window.addEventListener("DOMContentLoaded", () => {
-	appendDomItem(mainHeader, navbar);
-	// appendDomItem(mainHeader, breadCrumb);
+	appendDomItem(mainHeader, getNavBar());
 	appendDomItem(mainFooter, footer);
+	updateNavDom();
 });
+
+function updateNavDom() {
+	const currUser = localStorage.getItem("user")
+		? JSON.parse(localStorage.user)
+		: null;
+
+	const hasUser = currUser && currUser.hasOwnProperty("userId") ? true : false;
+	const isAdmin = currUser && currUser.role === "admin" ? true : false;
+
+	console.log(currUser, currUser.hasOwnProperty("role"), isAdmin);
+	const adminNav = document.getElementById("adminNav");
+	const userEntryBtns = document.querySelectorAll(".user-entry");
+	const userNav = document.querySelectorAll(".userNav");
+
+	if (isAdmin) {
+		adminNav.classList.remove("displayNone");
+	} else {
+		adminNav.classList.add("displayNone");
+	}
+
+	if (hasUser) {
+		userEntryBtns.forEach((el) => el.classList.add("displayNone"));
+		userNav.forEach((el) => el.classList.remove("displayNone"));
+	} else {
+		userEntryBtns.forEach((el) => el.classList.remove("displayNone"));
+		userNav.forEach((el) => el.classList.add("displayNone"));
+	}
+}
+
+function logout() {
+	localStorage.removeItem("user");
+	document.getElementById("adminNav").classList.add("displayNone");
+	const userEntryBtns = document.querySelectorAll(".user-entry");
+	const userNav = document.querySelectorAll(".userNav");
+	userEntryBtns.forEach((el) => el.classList.remove("displayNone"));
+	userNav.forEach((el) => el.classList.add("displayNone"));
+}
 
 function handleLogout() {
 	UIkit.modal.confirm("Confirm to logout?").then(
-		() => sessionStorage.removeItem("user"),
+		() => logout(),
 		() => {}
 	);
 }
 
-const adminDashboard = `
-<li>
-	<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
-	<div class="uk-navbar-dropdown">
- 	<ul class="uk-nav uk-navbar-dropdown-nav">
-		<li class="uk-nav-header">Admin</li>
-		<li><a href="/admin-userlist.html ">User List</a></li>
-		<li><a href="/admin-restaurantlist.html">Restarant List</a></li>
-		<li><a href="/admin-reviewlist.html">Review List</a></li>
-		<li class="uk-nav-divider"></li>
-		<li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
-	</ul>
-	</div>
-</li>`;
+function getNavBar() {
+	const adminNav = `
+	<li id="adminNav" class="displayNone">
+		<a href="/">Admin Dashboard<span uk-navbar-parent-icon></span></a>
+		<div class="uk-navbar-dropdown">
+			<ul class="uk-nav uk-navbar-dropdown-nav">
+				<li class="uk-nav-header">Admin</li>
+				<li><a href="/admin-userlist.html ">User List</a></li>
+				<li><a href="/admin-restaurantlist.html">Restarant List</a></li>
+				<li><a href="/admin-reviewlist.html">Review List</a></li>
+				<li class="uk-nav-divider"></li>
+				<li><a href="/admin-restaurant.html?action=new">Add Restaurant</a></li>
+			</ul>
+		</div>
+	</li>
+	`;
 
-function getAccountNavItem(currentUser) {
-	let content = `<div class="uk-navbar-right">
-					<ul class="uk-navbar-nav">
-						<li>
-							<a href="/"><span uk-icon="user"></span><span uk-navbar-parent-icon></span></a>
-							<div class="uk-navbar-dropdown">
-								<ul class="uk-nav uk-navbar-dropdown-nav">`;
+	const userSignin = `
+	
+	`;
 
-	if (Boolean(currentUser.userId)) {
-		content += `<li class="uk-nav-header">Account</li>
-									<li><a href="/user-profile.html">Profile</a></li>
-									<li><a href="/user-reviews.html">Reviews</a></li>
-									<li><a href="/user-favourite.html">Favourite</a></li>
-									<li class="uk-nav-divider"></li>
-									<li><a onclick="handleLogout()">Logout</a></li>`;
-	} else {
-		content += `${
-			currentPath === retrievePath("name", "register", "path")
-				? '<li class="uk-active">'
-				: "<li>"
-		}
-		<a href=${retrievePath("name", "register", "path")}>Register</a></li>
-		${
-			currentPath === retrievePath("name", "login", "path")
-				? '<li class="uk-active">'
-				: "<li>"
-		}<a href=${retrievePath("name", "login", "path")}>Login</a></li>`;
-	}
+	const userNav = `
+	
+	`;
 
-	content += `</ul></div></li></ul></div>`;
-
-	return content;
-}
-
-const navbar = `
-    <nav class="uk-navbar-container uk-navbar-transparent">
+	const navbar = `
+	<nav class="uk-navbar-container uk-navbar-transparent">
 		<div class="uk-container">
 			<div uk-navbar>
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
 						<li class="uk-active"><a href="/">DININGADVISOR</a></li>
-						${currentUser.role === "admin" && adminDashboard}
+						${adminNav}
 					</ul>
 				</div>
-				${getAccountNavItem(currentUser)}
+				<div class="uk-navbar-right">
+					<ul class="uk-navbar-nav">
+						<li>
+							<a href="/"><span uk-icon="user"></span><span uk-navbar-parent-icon></span></a>
+							<div class="uk-navbar-dropdown">
+								<ul class="uk-nav uk-navbar-dropdown-nav">
+									<li class="user-entry"><a href="/register.html">Register</a></li>
+									<li class="user-entry"><a href="/login.html">Login</a></li>
+									<li class="uk-nav-header userNav displayNone uk-margin-remove">Account</li>
+									<li class="userNav displayNone"><a href="/user-profile.html">Profile</a></li>
+									<li class="userNav displayNone"><a href="/user-reviews.html">Reviews</a></li>
+									<li class="userNav displayNone"><a href="/user-favourite.html">Favourite</a></li>
+									<li class="uk-nav-divider userNav displayNone"></li>
+									<li class="userNav displayNone"><a onclick="handleLogout()">Logout</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
 `;
 
-const breadCrumb = `
-    <nav class="uk-container uk-margin" aria-label="Breadcrumb">
-		<ul class="uk-breadcrumb">
-			<li><a href="/">Home</a></li>
-			<li><a href="#">Restaurants</a></li>
-		</ul>
-	</nav>
-        `;
+	return navbar;
+}
 
 const footer = `
     <div class="uk-position-bottom-center uk-position-relative uk-margin uk-text-center">

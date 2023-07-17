@@ -1,6 +1,10 @@
 "use strict";
 
 // CONSTANTS & VARIABLES
+const currentUser = localStorage.getItem("user")
+	? JSON.parse(localStorage.user)
+	: null;
+
 const pageStatus = {};
 
 const currentParams = new URLSearchParams(window.location.search);
@@ -425,7 +429,7 @@ saveBtn.addEventListener("click", () => {
 		}
 	} else {
 		const history = window.location.href;
-		sessionStorage.setItem("history", history);
+		localStorage.setItem("history", history);
 		window.location.assign("/login.html");
 	}
 });
@@ -437,12 +441,12 @@ reviewBtn.addEventListener("click", () => {
 		restaurantId: pageStatus.restaurantId,
 		restaurantName: pageStatus.data.restaurant.name ?? undefined,
 	};
-	sessionStorage.setItem("review", JSON.stringify(review));
-	if (sessionStorage.getItem("user")) {
+	localStorage.setItem("review", JSON.stringify(review));
+	if (localStorage.getItem("user")) {
 		window.location.assign("/user-review.html");
 	} else {
 		const history = `/user-review.html`;
-		sessionStorage.setItem("history", history);
+		localStorage.setItem("history", history);
 		window.location.assign("/login.html");
 	}
 });
