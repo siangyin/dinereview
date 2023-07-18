@@ -1,0 +1,10 @@
+{
+   "version": 2,
+   "name": "dinereview",
+   "builds": [
+      { "src": "app.js", "use": "@vercel/node" }
+   ],
+   "routes": [
+      { "src": "/(.*)", "dest": "/app.js" }
+   ]
+}
