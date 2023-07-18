@@ -169,20 +169,20 @@ const getRestaurantDetail = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const data = {};
-		let sql = `SELECT * FROM restaurants WHERE restaurantId = ?`;
-		let [row] = await pool.query(sql, [id]);
+		let sql = `SELECT * FROM restaurants WHERE restaurantId = ? AND status=?`;
+		let [row] = await pool.query(sql, [id, "active"]);
 
 		if (row[0]) {
 			data["restaurant"] = row[0];
 
-			sql = `SELECT * FROM photos WHERE restaurantId = ?`;
-			[row] = await pool.query(sql, [id]);
+			sql = `SELECT * FROM photos WHERE restaurantId = ? AND status=?`;
+			[row] = await pool.query(sql, [id, "active"]);
 			// get admin uploaded photos
 			data.photos = row;
 
 			// get all reviews of query restaurant
-			sql = `SELECT * FROM reviews WHERE restaurantId = ?`;
-			[row] = await pool.query(sql, [id]);
+			sql = `SELECT * FROM reviews WHERE restaurantId = ? AND status=?`;
+			[row] = await pool.query(sql, [id, "active"]);
 			data.avgRating = null;
 			data.totalReviews = 0;
 			data.reviews = [];
@@ -258,15 +258,15 @@ const getRestaurantsList = async (req, res) => {
 
 				//  get Restaurant Primary Photo
 				const [row2] = await pool.query(
-					`SELECT * FROM Photos WHERE restaurantId = ? AND defaultPhoto = ?`,
-					[i.restaurantId, true]
+					`SELECT * FROM Photos WHERE restaurantId = ? AND defaultPhoto = ? AND status=?`,
+					[i.restaurantId, true, "active"]
 				);
 
 				db.photos = row2[0].photoUrl ?? null;
 
 				const [count] = await pool.query(
-					`SELECT AVG(rating) AS avg, COUNT(*) AS counts FROM Reviews WHERE restaurantId = ?`,
-					[i.restaurantId]
+					`SELECT AVG(rating) AS avg, COUNT(*) AS counts FROM Reviews WHERE restaurantId = ? AND status=?`,
+					[i.restaurantId, "active"]
 				);
 
 				db.totalReviews = Number.parseInt(count[0].counts);

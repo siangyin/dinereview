@@ -234,7 +234,6 @@ function checkScreenHeight() {
 		document.documentElement.clientHeight
 	);
 	const contentMax = contentMaxH > screenH;
-	console.log(contentMax);
 
 	if (contentMax) {
 		viewToTopIcon.classList.remove("displayNone");
