@@ -110,10 +110,9 @@ function updateNavDom() {
 		? JSON.parse(localStorage.user)
 		: null;
 
-	const hasUser = currUser && currUser.hasOwnProperty("userId") ? true : false;
-	const isAdmin = currUser && currUser.role === "admin" ? true : false;
+	const hasUser = currUser && currUser?.userId ? true : false;
+	const isAdmin = currUser && currUser?.role === "admin" ? true : false;
 
-	console.log(currUser, currUser.hasOwnProperty("role"), isAdmin);
 	const adminNav = document.getElementById("adminNav");
 	const userEntryBtns = document.querySelectorAll(".user-entry");
 	const userNav = document.querySelectorAll(".userNav");
@@ -164,14 +163,6 @@ function getNavBar() {
 			</ul>
 		</div>
 	</li>
-	`;
-
-	const userSignin = `
-	
-	`;
-
-	const userNav = `
-	
 	`;
 
 	const navbar = `
@@ -230,6 +221,21 @@ newHeadLink.setAttribute("href", faviconUrl);
 document.head.appendChild(newHeadLink);
 
 // COMMON FUNCTIONS
+
+function checkScreenHeight() {
+	const screenH = window.innerHeight;
+	const contentMaxH = Math.max(
+		document.body.scrollHeight,
+		document.documentElement.scrollHeight,
+		document.body.offsetHeight,
+		document.documentElement.offsetHeight,
+		document.body.clientHeight,
+		document.documentElement.clientHeight
+	);
+	const contentMax = contentMaxH > screenH;
+	console.log(contentMax);
+	return contentMax;
+}
 
 function appendDomItem(parentDom, htmlchild) {
 	const div = document.createElement("div");

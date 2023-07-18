@@ -6,7 +6,7 @@ const pageStatus = {
 	action: "new",
 };
 // {loading: false, action: 'new', id: '1'}
-
+console.log(window.innerHeight);
 const currentParams = new URLSearchParams(window.location.search);
 // eg: action=new OR action=edit&id=1 or action=edit&restaurantId=1
 
