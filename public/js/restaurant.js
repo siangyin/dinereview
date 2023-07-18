@@ -53,9 +53,8 @@ async function getRestaurant(id) {
 			.then((res) => {
 				if (res.status == "OK") {
 					loadRestaurantDetail(res.data);
-					Object.assign(pageStatus, {
-						data: res.data,
-					});
+					pageStatus.data = res.data;
+					checkScreenHeight();
 				} else {
 					window.location.assign("/notfound.html");
 				}

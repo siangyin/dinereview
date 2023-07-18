@@ -251,6 +251,7 @@ async function getReview(reviewId) {
 					pageStatus.action = editable ? "edit" : "view";
 
 					showExistingReview(res.data[0]);
+					checkScreenHeight();
 				} else {
 					UIkit.notification({
 						message: `<span uk-icon='icon: check'></span>${

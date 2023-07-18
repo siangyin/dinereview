@@ -36,6 +36,7 @@ async function getAllRestaurants() {
 					};
 
 					Boolean(res.count) && loadCardList(res.data);
+					checkScreenHeight();
 				} else {
 					addAlertMsg(alertMsg, failMsg);
 					loadingSpinner.classList.add("displayNone");

@@ -1,52 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- UIKIT CSS & JS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 		<link rel="stylesheet" href="css/all.css" />
 	</head>
+
 	<body>
 		<header id="mainHeader"></header>
 		<main id="mainContent" class="uk-container uk-margin">
 			<h2 id="pageTitle" class="uk-heading-divider uk-margin-medium-bottom">
 				Restaurant
 			</h2>
-			<div
-				id="loadingSpinner"
-				class="uk-width-expand uk-text-center"
-				uk-spinner="ratio: 3"
-			></div>
+			<div id="loadingSpinner" class="uk-width-expand uk-text-center" uk-spinner="ratio: 3"></div>
 			<div id="restaurantContent" class="displayNone">
 				<!-- ROW 1: TWO COLUMNS PHOTO + ABOUT START-->
 				<div class="uk-child-width-expand@s" uk-grid>
 					<!-- COLUMN 1 - MAIN PHOTO-->
 					<div id="restaurant-photos-container" class="uk-width-1-3@s">
 						<div>
-							<img
-								id="main-restaurant-photos-img"
-								class="uk-margin-small-top"
-							/>
+							<img id="main-restaurant-photos-img" class="uk-margin-small-top" />
 						</div>
 						<a class="uk-link-muted" href="#photos-modal" uk-toggle>
 							<div class="uk-inline">
 								<span uk-icon="camera"></span>
 								<span id="viewAllPhotosTxt" class="uk-text-middle">
-									View all(12)</span
-								>
+									View all(12)</span>
 							</div>
 						</a>
 					</div>
@@ -62,18 +50,14 @@
 								<ul class="uk-iconnav">
 									<li>
 										<button id="saveBtn" class="uk-button uk-button-link">
-											<span uk-icon="icon: heart"></span
-											><strong id="saveBtnTxt" class="uk-text-middle">
-												Save</strong
-											>
+											<span uk-icon="icon: heart"></span><strong id="saveBtnTxt" class="uk-text-middle">
+												Save</strong>
 										</button>
 									</li>
 									<li>
 										<button id="reviewBtn" class="uk-button uk-button-link">
-											<span uk-icon="icon: commenting"></span
-											><strong id="reviewBtnTxt" class="uk-text-middle">
-												Review</strong
-											>
+											<span uk-icon="icon: commenting"></span><strong id="reviewBtnTxt" class="uk-text-middle">
+												Review</strong>
 										</button>
 									</li>
 								</ul>
@@ -81,11 +65,8 @@
 						</div>
 
 						<!-- ABOUT RESTAURANT-->
-						<div
-							id="restaurant-info"
-							class="uk-child-width-expand uk-grid-row-collapse uk-grid-column-small uk-margin-small-top"
-							uk-grid
-						></div>
+						<div id="restaurant-info"
+							class="uk-child-width-expand uk-grid-row-collapse uk-grid-column-small uk-margin-small-top" uk-grid></div>
 
 						<!-- DESC -->
 						<div id="restaurant-description" uk-grid></div>
@@ -95,41 +76,34 @@
 				<!-- ROW 2: REVIEWS + RATINGS -->
 				<div id="reviews-container" class="uk-margin-small">
 					<div>
-						<span id="subheader-bottom" class="uk-text-lead uk-margin-small"
-							>Reviews</span
-						>
+						<span id="subheader-bottom" class="uk-text-lead uk-margin-small">Reviews</span>
 					</div>
 					<hr class="uk-margin-small" />
 					<!-- Users Reviews list start -->
-					<div
-						id="users-review-list"
-						class="uk-child-width-expand@s"
-						uk-grid
-					></div>
+					<div id="users-review-list" class="uk-child-width-expand@s" uk-grid></div>
 					<!-- Users Reviews list end -->
 				</div>
 				<!-- ROW 3: REVIEWS + RATINGS END-->
 				<div id="photos-modal" class="uk-modal-container" uk-modal>
 					<div class="uk-modal-dialog">
-						<button
-							class="uk-modal-close-default"
-							type="button"
-							uk-close
-						></button>
+						<button class="uk-modal-close-default" type="button" uk-close></button>
 
 						<div class="uk-modal-body" uk-overflow-auto>
-							<div
-								id="photos-modal-body"
+							<div id="photos-modal-body"
 								class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-small uk-padding-small"
-								uk-grid="masonry: true"
-							></div>
+								uk-grid="masonry: true"></div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="viewToTopIcon"
+				class="displayNone uk-flex uk-flex-center uk-flex-right@m uk-margin-medium uk-margin-small-bottom">
+				<a href="" uk-scroll uk-icon="icon: chevron-up; ratio: 2"></a>
 			</div>
 		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
 		<script src="js/restaurant.js"></script>
 	</body>
+
 </html>

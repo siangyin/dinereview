@@ -65,6 +65,7 @@ async function getUserProfile(id) {
 				if (res.status == "OK") {
 					loadUserProfile(res.data);
 					Object.assign(currentUser, res.data);
+					checkScreenHeight();
 				} else {
 					window.location.assign("/nodata.html");
 				}

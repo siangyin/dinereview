@@ -223,6 +223,7 @@ document.head.appendChild(newHeadLink);
 // COMMON FUNCTIONS
 
 function checkScreenHeight() {
+	const viewToTopIcon = document.getElementById("viewToTopIcon");
 	const screenH = window.innerHeight;
 	const contentMaxH = Math.max(
 		document.body.scrollHeight,
@@ -234,7 +235,12 @@ function checkScreenHeight() {
 	);
 	const contentMax = contentMaxH > screenH;
 	console.log(contentMax);
-	return contentMax;
+
+	if (contentMax) {
+		viewToTopIcon.classList.remove("displayNone");
+	} else {
+		viewToTopIcon.classList.add("displayNone");
+	}
 }
 
 function appendDomItem(parentDom, htmlchild) {

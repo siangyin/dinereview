@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- UIKIT CSS & JS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/all.css" />
 		<title>Contact</title>
 	</head>
-	<body>
+
+	<body onload="checkScreenHeight()">
 		<header id="mainHeader"></header>
 		<main id="mainContent" class="uk-container uk-margin">
 			<div class="uk-grid-collapse uk-child-width-expand@s" uk-grid>
@@ -27,54 +23,34 @@
 					<img src="images/contact.svg" alt="mobile-login" />
 				</div>
 
-				<div
-					class="uk-margin-auto uk-card uk-card-body uk-padding-remove-right"
-				>
+				<div class="uk-margin-auto uk-card uk-card-body uk-padding-remove-right">
 					<form>
 						<div class="uk-heading-divider uk-margin-medium-bottom">
 							<h2 class="uk-margin-remove">Contact Us</h2>
 						</div>
 						<label for="name">Name</label>
-						<input
-							class="uk-input uk-margin-small-bottom"
-							id="name"
-							type="text"
-							placeholder="Name"
-						/>
+						<input class="uk-input uk-margin-small-bottom" id="name" type="text" placeholder="Name" />
 						<label for="email">Email</label>
-						<input
-							class="uk-input uk-margin-small-bottom"
-							id="email"
-							type="email"
-							placeholder="Email"
-						/>
+						<input class="uk-input uk-margin-small-bottom" id="email" type="email" placeholder="Email" />
 						<label for="subject">Subject</label>
-						<input
-							class="uk-input uk-margin-small-bottom"
-							id="subject"
-							type="text"
-							placeholder="Subject"
-						/>
+						<input class="uk-input uk-margin-small-bottom" id="subject" type="text" placeholder="Subject" />
 						<label for="message">Message</label>
-						<textarea
-							id="message"
-							class="uk-textarea uk-margin-small-bottom"
-							rows="5"
-							placeholder="Message"
-							aria-label="Textarea"
-						></textarea>
+						<textarea id="message" class="uk-textarea uk-margin-small-bottom" rows="5" placeholder="Message"
+							aria-label="Textarea"></textarea>
 
-						<button
-							id="contactUsBtn"
-							class="uk-margin-small uk-button uk-button-danger uk-width-1-1"
-						>
+						<button id="contactUsBtn" class="uk-margin-small uk-button uk-button-danger uk-width-1-1">
 							Submit
 						</button>
 					</form>
 				</div>
 			</div>
+			<div id="viewToTopIcon"
+				class="displayNone uk-flex uk-flex-center uk-flex-right@m uk-margin-medium uk-margin-small-bottom">
+				<a href="" uk-scroll uk-icon="icon: chevron-up; ratio: 2"></a>
+			</div>
 		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
 	</body>
+
 </html>

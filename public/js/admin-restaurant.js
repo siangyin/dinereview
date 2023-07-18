@@ -6,7 +6,7 @@ const pageStatus = {
 	action: "new",
 };
 // {loading: false, action: 'new', id: '1'}
-console.log(window.innerHeight);
+
 const currentParams = new URLSearchParams(window.location.search);
 // eg: action=new OR action=edit&id=1 or action=edit&restaurantId=1
 
@@ -247,6 +247,7 @@ async function getRestaurant(id) {
 					).innerHTML = `Edit Restaurant: ${res.data.restaurant.name}`;
 					Boolean(res.data.photos.length) &&
 						updateExistingPhotosInput(res.data.photos);
+					checkScreenHeight();
 				}
 			});
 	} catch (error) {

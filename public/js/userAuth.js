@@ -8,7 +8,7 @@ const form = document.querySelector("form");
 const formInput = document.querySelectorAll(".uk-input");
 
 let formFields = [];
-
+checkScreenHeight();
 // set variable based on current path eg login or register
 switch (currentPath) {
 	case "/register.html":

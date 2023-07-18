@@ -115,6 +115,7 @@ async function fetchData() {
 				if (res.status == "OK") {
 					if (res.data && res.data.length > 0) {
 						loadData(res.data);
+						checkScreenHeight();
 					} else {
 						nodata.innerHTML = "No data";
 					}

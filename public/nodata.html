@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- UIKIT CSS & JS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css" />
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/all.css" />
 	</head>
+
 	<body>
 		<header id="mainHeader"></header>
 		<main id="mainContent" class="uk-container uk-margin">
-			<div
-				class="uk-flex uk-height-medium uk-background-default uk-margin uk-text-center"
-			>
+			<div class="uk-flex uk-height-medium uk-background-default uk-margin uk-text-center">
 				<div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s">
 					<div class="uk-margin-medium-top uk-text-large">
 						Sorry, no data found
@@ -31,8 +25,13 @@
 					<img src="images/nodata.svg" alt="no-data" />
 				</div>
 			</div>
+			<div id="viewToTopIcon"
+				class="displayNone uk-flex uk-flex-center uk-flex-right@m uk-margin-medium uk-margin-small-bottom">
+				<a href="" uk-scroll uk-icon="icon: chevron-up; ratio: 2"></a>
+			</div>
 		</main>
 		<footer id="mainFooter"></footer>
 		<script src="js/all.js"></script>
 	</body>
+
 </html>
