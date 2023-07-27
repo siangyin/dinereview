@@ -108,8 +108,16 @@ formInput.forEach((item) => {
 
 	item.addEventListener("blur", (e) => {
 		const userInput = e.target.value;
+		const checkPw = e.target.id === "password" ? validatePw(userInput) : true;
+
 		if (isEmptyStr(userInput)) {
 			item.className = "uk-input uk-form-danger uk-margin-small-bottom";
+		} else if (!checkPw) {
+			item.className = "uk-input uk-form-danger uk-margin-small-bottom";
+			addAlertMsg(
+				alertMsg,
+				"Password must have at least 8 characters contains uppercase letter, lowercase letter, and number"
+			);
 		} else {
 			item.className = "uk-input uk-margin-small-bottom";
 		}

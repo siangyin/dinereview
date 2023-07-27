@@ -292,6 +292,18 @@ function validateEmail(email) {
 	return validRegex.test(email);
 }
 
+function validatePw(pw) {
+	if (
+		pw.length < 8 ||
+		!/[a-z]/.test(pw) ||
+		!/[a-z]/.test(pw) ||
+		!/\d/.test(pw)
+	) {
+		return false;
+	} else return true;
+	// !/[^a-zA-Z\d]/.test(password) //("include at least one special character");
+}
+
 function isEmptyStr(str) {
 	return !str || str.length === 0;
 }

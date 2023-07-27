@@ -29,11 +29,16 @@
 						</h2>
 						<div id="alertMsg"></div>
 						<label for="username">Username</label>
-						<input class="uk-input uk-margin-small-bottom" id="username" type="text" placeholder="Username" />
+						<input class="uk-input uk-margin-small-bottom" id="username" name="username" type="text"
+							placeholder="Username" />
 						<label for="email">Email</label>
-						<input class="uk-input uk-margin-small-bottom" id="email" type="email" placeholder="Email" />
-						<label for="password">Password</label>
-						<input class="uk-input uk-margin-small-bottom" id="password" type="password" placeholder="Password" />
+						<input class="uk-input uk-margin-small-bottom" id="email" name="email" type="email" placeholder="Email" />
+						<label for="password">Password <span style="vertical-align:text-bottom" uk-icon="icon: info"
+								uk-tooltip="title: Password must have at least 8 characters contains uppercase letter, lowercase letter, and number; pos: right"></span></label>
+
+						<input class="uk-input uk-margin-small-bottom" id="password" name="password" type="password"
+							placeholder="Password" />
+
 					</form>
 					<button id="userAccessBtn" class="uk-margin-small uk-button uk-button-danger uk-width-1-1">
 						Register
