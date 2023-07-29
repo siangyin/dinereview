@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
 main {
 	min-height: calc(100vh - 230px);
+}
+
+.logo {
+	font-family: "Righteous", cursive;
+	font-size: 1.2rem;
 }
 
 footer {

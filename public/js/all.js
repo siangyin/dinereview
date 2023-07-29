@@ -171,7 +171,7 @@ function getNavBar() {
 			<div uk-navbar>
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
-						<li class="uk-active"><a href="/">DININGADVISOR</a></li>
+						<li class="uk-active"><a href="/"><span class="logo uk-text-secondary"><span id="dining">DINING</span><span id="advisor">ADVISOR</span></span></a></li>
 						${adminNav}
 					</ul>
 				</div>
