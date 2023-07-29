@@ -53,7 +53,7 @@ async function deleteRestaurant(id) {
 }
 
 function handleDelete(id) {
-	UIkit.modal.confirm("Confirm to delete restaurant?").then(
+	UIkit.modal.confirm("<h3>Confirm to delete restaurant?</h3>").then(
 		() => deleteRestaurant(id),
 		() => {}
 	);

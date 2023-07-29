@@ -51,7 +51,7 @@ async function deleteReview(id) {
 }
 
 function handleDelete(id) {
-	UIkit.modal.confirm("Confirm to delete review?").then(
+	UIkit.modal.confirm("<h3>Confirm to delete review?</h3>").then(
 		() => deleteReview(id),
 		() => {}
 	);

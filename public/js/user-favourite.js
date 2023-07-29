@@ -51,10 +51,12 @@ async function deleteFav(id) {
 }
 
 function handleUnsave(id) {
-	UIkit.modal.confirm("Confirm to remove restaurant from favourite?").then(
-		() => deleteFav(id),
-		() => {}
-	);
+	UIkit.modal
+		.confirm("<h3>Confirm to remove restaurant from favourite?</h3>")
+		.then(
+			() => deleteFav(id),
+			() => {}
+		);
 }
 
 function appendData(db) {

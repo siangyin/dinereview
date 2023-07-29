@@ -53,7 +53,7 @@ async function deleteReview(id) {
 }
 
 function handleDelete(id) {
-	UIkit.modal.confirm("Confirm to delete review?").then(
+	UIkit.modal.confirm("<h3>Confirm to unpublished review?</h3>").then(
 		() => deleteReview(id),
 		() => {}
 	);
@@ -106,7 +106,7 @@ function appendData(db) {
 	td.classList.add("uk-text-nowrap");
 	td.innerHTML = `<div class="uk-inline">
  <a href="/user-review.html?reviewId=${db.reviewId}&action=view" class="uk-margin-small-right" uk-icon="eye"></a>
- <a onclick="handleDelete(${db.reviewId})" class="uk-margin-small-right" uk-icon="trash"></a>
+ <a onclick="handleDelete(${db.reviewId})" class="uk-margin-small-right" uk-icon="ban"></a>
  </div>`;
 
 	mainTr.appendChild(td);
