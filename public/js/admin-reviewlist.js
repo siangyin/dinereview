@@ -97,6 +97,13 @@ function appendData(db) {
 
 	td = document.createElement("td");
 	td.classList.add("uk-text-nowrap");
+	td.classList.add("uk-table-expand");
+	td.classList.add("uk-text-capitalize");
+	td.innerHTML = db.status;
+	mainTr.appendChild(td);
+
+	td = document.createElement("td");
+	td.classList.add("uk-text-nowrap");
 	td.innerHTML = `<div class="uk-inline">
  <a href="/user-review.html?reviewId=${db.reviewId}&action=view" class="uk-margin-small-right" uk-icon="eye"></a>
  <a onclick="handleDelete(${db.reviewId})" class="uk-margin-small-right" uk-icon="trash"></a>

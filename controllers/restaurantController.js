@@ -239,8 +239,8 @@ const getRestaurantDetail = async (req, res) => {
 const getRestaurantsList = async (req, res) => {
 	try {
 		const data = [];
-		let sql = `SELECT * FROM Restaurants WHERE status = ?`;
-		let [row] = await pool.query(sql, ["active"]);
+		let sql = `SELECT * FROM Restaurants`;
+		let [row] = await pool.query(sql);
 
 		if (Boolean(row)) {
 			for (const i of row) {
@@ -278,7 +278,9 @@ const getRestaurantsList = async (req, res) => {
 			return res.status(200).json({
 				status: "OK",
 				count: data.length,
-				data: data,
+				data: data.sort((p1, p2) =>
+					p1.name > p2.name ? 1 : p1.name < p2.name ? -1 : 0
+				),
 			});
 		}
 

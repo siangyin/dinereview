@@ -88,6 +88,13 @@ function appendData(db) {
 
 	td = document.createElement("td");
 	td.classList.add("uk-text-nowrap");
+	td.classList.add("uk-table-expand");
+	td.classList.add("uk-text-capitalize");
+	td.innerHTML = db.status;
+	mainTr.appendChild(td);
+
+	td = document.createElement("td");
+	td.classList.add("uk-text-nowrap");
 	td.innerHTML = `<div class="uk-inline">
     <a href="/admin-restaurant.html?action=edit&restaurantId=${db.restaurantId}" class="uk-margin-small-right" uk-icon="pencil"></a>
     <a onclick="handleDelete(${db.restaurantId})" class="uk-margin-small-right" uk-icon="trash"></a>
