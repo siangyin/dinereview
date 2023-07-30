@@ -142,7 +142,7 @@ function logout() {
 }
 
 function handleLogout() {
-	UIkit.modal.confirm("<h3>Confirm to logout?</h3").then(
+	UIkit.modal.confirm("<h3>Confirm to logout?</h3>").then(
 		() => logout(),
 		() => {}
 	);
